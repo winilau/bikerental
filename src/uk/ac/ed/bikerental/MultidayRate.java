@@ -32,7 +32,26 @@ public class MultidayRate implements PricingPolicy {
       result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid));
       }
     }
-		return null;
+    if (discountMap.get(bookingLength)!=null) {
+    	bikes = new ArrayList<Bike>();
+    	for (Bike b:bikes) {
+    		BikeType bikeType = b.getType();
+    		BigDecimal dailyPrice = bikeMap.get(bikeType);
+    		BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
+    		BigDecimal appliedDiscount = discountMap.get(bookingLength);
+    		BigDecimal pricePaid = BigDecimal.ONE.subtract(appliedDiscount);
+    		result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid));
+    	}
+    } else {
+    	bikes = new ArrayList<Bike>();
+    	for (Bike b: bikes) {
+    		BikeType bikeType = b.getType();
+    		BigDecimal dailyPrice = bikeMap.get(bikeType);
+    		BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
+    		result = result.add(dailyPrice.multiply(lengthOfBooking));
+    	}
+    }
+		return result;
 	}
   
   public void setDiscount(int start, int end, BigDecimal discount) {

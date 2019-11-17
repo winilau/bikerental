@@ -64,17 +64,17 @@ public class Bike {
 	
 	public void changeAvailability(Bike b) {
 		if (b.getAvailability()==true) {
-			available = false;
+			b.available = false;
 		} else {
-			available = true;
+			b.available = true;
 		}
 	}
 	
 	public void changeLocation(Bike b) {
 		if (b.isBikeInStore()==true) {
-			inStore = false;
+			b.inStore = false;
 		} else {
-			inStore = true;
+			b.inStore = true;
 		}
 	}
 }

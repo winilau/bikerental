@@ -26,7 +26,10 @@ public class MultidayRate implements PricingPolicy {
       bikes = new ArrayList<Bike>();
       for (Bike b:bikes){
       BikeType bikeType = b.getType();
-      result = result.add(bikeMap.get(bikeType).multiply(BigDecimal.valueOf(bookingLength)).multiply(MaxDiscount));
+      BigDecimal dailyPrice = bikeMap.get(bikeType);
+      BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
+      BigDecimal pricePaid = BigDecimal.ONE.subtract(MaxDiscount);
+      result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid));
       }
     }
 		return null;

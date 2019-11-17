@@ -1,9 +1,80 @@
 package uk.ac.ed.bikerental;
 
+import java.math.*;
+import java.util.*;
+
 public class Bike {
+	int id;
+	BikeType bikeType;
+	boolean available = true;
+	boolean inStore = true;
+	BigDecimal replacementValue;
+	List<Bike> bikeDB = new ArrayList<Bike>();
+	
+	Bike (int id, BikeType bikeType, boolean available, boolean inStore, BigDecimal replacementValue){
+		this.id = id;
+		this.bikeType = bikeType;
+		this.available = available;
+		this.inStore = inStore;
+		this.replacementValue = replacementValue;
+		
+	}
+	
+	public boolean getAvailability() {
+		return available;
+	}
+	
+	public boolean isBikeInStore() {
+		return inStore;
+	}
+	
     public BikeType getType() {
-        // TODO: Implement Bike.getType
-        assert false;
-        return null;
+    	return bikeType;
     }
+    
+    public BigDecimal getReplacementValue() {
+    	return replacementValue;
+    }
+    
+    public int getId() {
+    	return id;
+    }
+    
+    public void info() {
+    	System.out.println("Bike information:\nId: " + id + "\nType: " + bikeType + "\n Available?: " +
+    available + "\nBike in store?: " + inStore + "\nReplacement value: " + replacementValue);
+    }
+    
+	public void addBike(Bike b) {
+		if (bikeDB.contains(b)) {
+			System.out.println("Bike is already in the Database");
+		} else {
+			bikeDB.add(b);
+		}
+
+	}
+	
+	public void deleteBike(Bike b) {
+		if (bikeDB.contains(b)) {
+			bikeDB.remove(b);
+		} else {
+			System.out.println("Bike not found!");
+		}
+	}
+	
+	public void changeAvailability(Bike b) {
+		if (b.getAvailability()==true) {
+			available = false;
+		} else {
+			available = true;
+		}
+	}
+	
+	public void changeLocation(Bike b) {
+		if (b.isBikeInStore()==true) {
+			inStore = false;
+		} else {
+			inStore = true;
+		}
+	}
 }

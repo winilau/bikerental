@@ -4,7 +4,6 @@ import java.util.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 
 public class MultidayRate implements PricingPolicy {
 
@@ -34,7 +33,6 @@ public class MultidayRate implements PricingPolicy {
 				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength); //converts the booking length to a BigDecimal (to make calculations easier)
 				BigDecimal pricePaid = BigDecimal.ONE.subtract(MaxDiscount); //the price paid is : original price * (1-discount) so we're computing 1-discount
 				result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid)); //price per bike is : original price * (1-discount)*booking length
-				System.out.println(result);
 			}
 		}
 		else if (discountMap.get(bookingLength) != null) { //checking if there is a discount set
@@ -77,49 +75,4 @@ public class MultidayRate implements PricingPolicy {
 		this.MaxDays = start;
 		this.MaxDiscount = roundedDiscount;
 	}
-	
-	public static void main(String[] args) {
-		MultidayRate tester = new MultidayRate();
-		 DateRange dateRange1 = new DateRange(LocalDate.of(2019, 1, 7),
-	              LocalDate.of(2019, 1, 20));
-		 		 
-	      BigDecimal discount1 = new BigDecimal(0.05);
-	      BigDecimal discount2 = new BigDecimal(0.10);
-	      BigDecimal discount3 = new BigDecimal(0.15);
-	      
-	      BigDecimal price1 = new BigDecimal(150);
-	      BigDecimal price2 = new BigDecimal(250);
-	      BigDecimal price3 = new BigDecimal(180);
-	      
-	      BikeType mountain = new BikeType("mountain");
-	      BikeType road = new BikeType("road");
-	      BikeType bmx = new BikeType("bmx");
-	      
-	      BigDecimal hundred = new BigDecimal(100);
-	      BigDecimal twoHundred = new BigDecimal(200);
-	      BigDecimal threeHundred = new BigDecimal(300);
-	      
-	      Collection<Bike> bikes1 = new ArrayList<Bike>(){
-	          {
-	            add(new Bike(0, mountain, true, true, hundred));
-	            add(new Bike(1, road, true, true, twoHundred));
-	            add(new Bike(2, bmx, true, true, threeHundred));
-	            add(new Bike(3, mountain, true, true, hundred));
-	          }};
-	          
-	      
-	      tester.setDiscount(1,2,BigDecimal.ZERO);
-	      tester.setDiscount(3,6,discount1);
-	      tester.setDiscount(7,13,discount2);
-	      tester.setDiscount(14, discount3);
-	      
-	      tester.setDailyRentalPrice(mountain, price1);
-	      tester.setDailyRentalPrice(road,price2);
-	      tester.setDailyRentalPrice(bmx,price3);
-
-	      
-	      tester.calculatePrice(bikes1, dateRange1);
-	      
-	}
-
 }

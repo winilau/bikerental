@@ -4,12 +4,12 @@ import java.math.*;
 import java.util.*;
 
 public class Bike {
-	int id;
-	BikeType bikeType;
-	boolean available = true;
-	boolean inStore = true;
-	BigDecimal replacementValue;
-	List<Bike> bikeDB = new ArrayList<Bike>();
+	private int id;
+	private BikeType bikeType;
+	private boolean available = true;
+	private boolean inStore = true;
+	private BigDecimal replacementValue;
+	public static List<Bike> bikeDB = new ArrayList<Bike>();
 	
 	public Bike (int id, BikeType bikeType, boolean available, boolean inStore, BigDecimal replacementValue){
 		this.id = id;

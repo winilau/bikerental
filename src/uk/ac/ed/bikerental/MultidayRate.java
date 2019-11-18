@@ -12,41 +12,43 @@ public class MultidayRate implements PricingPolicy {
 	private BigDecimal MaxDiscount;
 
 	@Override
+	//Lets owner set the daily rental price per bike type.
 	public void setDailyRentalPrice(BikeType bikeType, BigDecimal dailyPrice) {
 		this.bikeMap.put(bikeType, dailyPrice);
 	}
 
 	@Override
+	// This function calculates the price with the applied discount
 	public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
 		BigDecimal result = BigDecimal.ZERO;
-		int bookingLength = (int) duration.toDays();
-		if (bookingLength >= this.MaxDays) {
+		int bookingLength = (int) duration.toDays(); //converting duration to int.
+		if (bookingLength >= this.MaxDays) { //checking if we're in the last tier
 			bikes = new ArrayList<Bike>();
-			for (Bike b : bikes) {
-				BikeType bikeType = b.getType();
-				BigDecimal dailyPrice = bikeMap.get(bikeType);
-				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
-				BigDecimal pricePaid = BigDecimal.ONE.subtract(MaxDiscount);
-				result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid));
+			for (Bike b : bikes) { //looping through the collection
+				BikeType bikeType = b.getType(); //calls the Bike class getter function
+				BigDecimal dailyPrice = bikeMap.get(bikeType); //finds the daily price set by the owner for this type of bikes
+				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength); //converts the booking length to a BigDecimal (to make calculations easier)
+				BigDecimal pricePaid = BigDecimal.ONE.subtract(MaxDiscount); //the price paid is : original price * (1-discount) so we're computing 1-discount
+				result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid)); //price per bike is : original price * (1-discount)*booking length
 			}
 		}
-		if (discountMap.get(bookingLength) != null) {
+		if (discountMap.get(bookingLength) != null) { //checking if there is a discount set
 			bikes = new ArrayList<Bike>();
 			for (Bike b : bikes) {
-				BikeType bikeType = b.getType();
+				BikeType bikeType = b.getType(); //same as before
 				BigDecimal dailyPrice = bikeMap.get(bikeType);
 				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
 				BigDecimal appliedDiscount = discountMap.get(bookingLength);
 				BigDecimal pricePaid = BigDecimal.ONE.subtract(appliedDiscount);
 				result = result.add(dailyPrice.multiply(lengthOfBooking).multiply(pricePaid));
 			}
-		} else {
+		} else { //No discounts are set
 			bikes = new ArrayList<Bike>();
-			for (Bike b : bikes) {
+			for (Bike b : bikes) { 
 				BikeType bikeType = b.getType();
 				BigDecimal dailyPrice = bikeMap.get(bikeType);
 				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
-				result = result.add(dailyPrice.multiply(lengthOfBooking));
+				result = result.add(dailyPrice.multiply(lengthOfBooking)); //No discount sp price per bike is: Original price* booking length
 			}
 		}
 		return result;

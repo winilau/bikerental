@@ -52,7 +52,6 @@ public class MultidayRate implements PricingPolicy {
 				result = result.add(dailyPrice.multiply(lengthOfBooking)); //No discount sp price per bike is: Original price* booking length
 			}
 		}
-		System.out.println(result);
 		return result;
 	}
 

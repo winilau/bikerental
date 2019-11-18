@@ -21,16 +21,28 @@ public class BikeType {
 		COMMUTING,
 		TRACK,
 		KIDS,	
-	}
+	};
 	
 	private final Type typeValue;
 	
 	public BikeType (String type) {
+		if (type == null) {
+			throw new IllegalArgumentException("Given type must not be null.");
+		}
 		typeValue = Type.valueOf(type.toUpperCase());
 	}
+	
+    public String typeValue() { return typeValue.name(); }
+
     public BigDecimal getReplacementValue() {
-        // TODO: Implement Bike.getReplacementValue
-        assert false;
-        return null;
+    	int size = Bike.bikeDB.size();
+    	for (int i = 0; i < size; i++ ) {
+    		Bike bike = Bike.bikeDB.get(i);
+    		String bikeType = bike.getType().typeValue();
+    		if (bikeType == this.typeValue()) {
+    			bike.getReplacementValue();
+    		}
+    	}
+    	return null;
     }
 }

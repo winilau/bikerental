@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +33,7 @@ public class MultidayRateTests {
               LocalDate.of(2019, 1, 7));
       this.dateRange2 = new DateRange(LocalDate.of(2019, 1, 5),
               LocalDate.of(2019, 1, 27));
-      this.dateRange3 = new DateRange(LocalDate.of(2015, 1, 7),
+      this.dateRange3 = new DateRange(LocalDate.of(2018, 1, 7),
               LocalDate.of(2018, 1, 10));
       
       this.hundred = new BigDecimal(100);
@@ -72,28 +74,36 @@ public class MultidayRateTests {
  
     }
 	
+	
+	
 	@Test
 	void testCalculatePrice1() {
-		BigDecimal result1 = new BigDecimal(0);
-		assertEquals(result1, this.tester.calculatePrice(bikes1, dateRange1));
+		BigDecimal result1 = this.tester.calculatePrice(bikes1, dateRange1);
+		double doubleResult1 = result1.doubleValue();
+		
+		assertEquals((double) 730, doubleResult1);
 	}
 	
 	@Test
 	void testCalculatePrice2() {
-		BigDecimal result2 = new BigDecimal(13651);
-		assertEquals(result2, this.tester.calculatePrice(bikes1, dateRange2));
+		BigDecimal result2 = this.tester.calculatePrice(bikes1, dateRange2);
+		double doubleResult2 = result2.doubleValue();
+		
+		assertEquals((double) 14271.5, doubleResult2);
 	}
 	
 	@Test
-	void testCalculatePric3() {
-		BigDecimal result3 = new BigDecimal(2080.5);
-		assertEquals(result3, this.tester.calculatePrice(bikes1, dateRange3));
+	void testCalculatePrice3() {
+		BigDecimal result3 = this.tester.calculatePrice(bikes1, dateRange3);
+		double doubleResult3 = result3.doubleValue();
+		
+		assertEquals((double) 2774 , doubleResult3);
 
 	}
 	
 	@Test
-	void testCalculatePric4() {
-		assertEquals(BigDecimal.ZERO, this.tester.calculatePrice(bikes1, dateRange3));
+	void testCalculatePrice4() {
+		assertEquals(BigDecimal.ZERO, this.tester.calculatePrice(bikes2, dateRange3));
 
 	}
 	

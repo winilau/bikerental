@@ -21,7 +21,7 @@ public class MultidayRate implements PricingPolicy {
 	// This function calculates the price with the applied discount
 	public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
 		BigDecimal result = BigDecimal.ZERO;
-		int bookingLength = (int) duration.toDays(); //converting duration to int.
+		int bookingLength = Math.toIntExact(duration.toDays()); //converting duration to int.
 		if (bookingLength >= this.MaxDays) { //checking if we're in the last tier
 			bikes = new ArrayList<Bike>();
 			for (Bike b : bikes) { //looping through the collection

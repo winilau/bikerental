@@ -11,7 +11,7 @@ public class Bike {
 	BigDecimal replacementValue;
 	List<Bike> bikeDB = new ArrayList<Bike>();
 	
-	Bike (int id, BikeType bikeType, boolean available, boolean inStore, BigDecimal replacementValue){
+	public Bike (int id, BikeType bikeType, boolean available, boolean inStore, BigDecimal replacementValue){
 		this.id = id;
 		this.bikeType = bikeType;
 		this.available = available;

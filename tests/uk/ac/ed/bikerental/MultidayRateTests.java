@@ -62,24 +62,19 @@ public class MultidayRateTests {
 	@Test
 	void testCalculatePrice1() {
 		BigDecimal result1 = this.tester.calculatePrice(bikes1, dateRange1);
-		double doubleResult1 = result1.doubleValue();
-		
-		assertEquals((double) 730, doubleResult1);
+		assertEquals(BigDecimal(730).stripTrailingZeros(), result1.stripTrailingZeros());
 	}
 	
 	@Test
 	void testCalculatePrice2() {
-		BigDecimal result2 = this.tester.calculatePrice(bikes1, dateRange2);
-		double doubleResult2 = result2.doubleValue();
-		
-		assertEquals((double) 14271.5, doubleResult2);
+		BigDecimal result2 = this.tester.calculatePrice(bikes1, dateRange2);		
+		assertEquals(BigDecimal(14271.5).stripTrailingZeros(), result2.stripTrailingZeros());
 	}
 	
 	@Test
 	void testCalculatePrice3() {
 		BigDecimal result3 = this.tester.calculatePrice(bikes1, dateRange3);
-		double doubleResult3 = result3.doubleValue();
-		assertEquals((double) 2774 , doubleResult3);
+		assertEquals(BigDecimal(2774).stripTrailingZeros(), result3.stripTrailingZeros());
 	}
 	
 	@Test

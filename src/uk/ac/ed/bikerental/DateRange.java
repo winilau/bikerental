@@ -30,13 +30,12 @@ public class DateRange {
     }
 
     public Boolean overlaps(DateRange other) {
-    	LocalDate lowerBound = this.start;
-    	LocalDate upperBound = this.end;
+    	LocalDate firstStart = this.start;
+    	LocalDate firstEnd = this.end;
     	LocalDate otherEnd = other.getEnd();
     	LocalDate otherStart = other.getStart();
-    	boolean checkStart = otherStart.isBefore(upperBound) && otherStart.isAfter(lowerBound);
-    	boolean checkEnd = otherEnd.isBefore(upperBound) && otherEnd.isAfter(lowerBound);
-    	return (checkStart||checkEnd);
+    	boolean check = otherStart.isBefore(firstEnd) && firstStart.isBefore(otherEnd);
+    	return check;
       
     }
 

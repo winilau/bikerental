@@ -34,8 +34,10 @@ public class DateRange {
     	LocalDate firstEnd = this.end;
     	LocalDate otherEnd = other.getEnd();
     	LocalDate otherStart = other.getStart();
-    	boolean check = otherStart.isBefore(firstEnd) && firstStart.isBefore(otherEnd);
-    	return check;
+    	if (firstEnd.isBefore(otherStart)||otherEnd.isBefore(firstStart)) {
+    		return false;
+    	}
+    	return true;
       
     }
 

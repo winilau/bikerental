@@ -9,17 +9,15 @@ public class Quote {
 	private DateRange duration;
 	private BigDecimal price;
 	private BigDecimal deposit;
-	private boolean collection;
 	private int bookingNum = 0;
 	
 	public Quote (Provider provider, Bike bike, DateRange duration, 
-			BigDecimal price, BigDecimal deposit, boolean collection) {
+			BigDecimal price, BigDecimal deposit) {
 		this.provider = provider;
 		this.bike = bike;
 		this.duration = duration;
 		this.price = price;
 		this.deposit = deposit;
-		this.collection = collection;
 	}
 	
 	public Provider getProvider() {
@@ -42,17 +40,13 @@ public class Quote {
 		return deposit;
 	}
 	
-	public boolean isItForCollection() {
-		return collection;
-	}
 	
 	public Booking bookQuote(Collection <Quote> quotes) {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		for (Quote q : quotes) {
 			totalPrice = totalPrice.add(q.getDeposit().add(q.getPrice())).stripTrailingZeros();
 			DateRange duration = q.getDuration();
-			boolean isItCollected = q.isItForCollection();
-			Booking booked = new Booking(this.bookingNum, duration, totalPrice, isItCollected,me);
+			Booking booked = new Booking(this.bookingNum, duration, totalPrice, true,me);
 			this.bookingNum++;
 			return booked;
 		}

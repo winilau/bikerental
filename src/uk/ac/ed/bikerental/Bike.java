@@ -8,7 +8,6 @@ public class Bike {
 	private BikeType bikeType;
 	private boolean inStore = true;
 	private BigDecimal replacementValue;
-	public static List<Bike> bikeDB = new ArrayList<Bike>();
 	public List<DateRange> dateRanges = new ArrayList<DateRange>();
 	
 	public Bike (int id, BikeType bikeType, boolean inStore, BigDecimal replacementValue){
@@ -45,23 +44,6 @@ public class Bike {
     }
     
     
-	public void addBike(Bike b) {
-		if (bikeDB.contains(b)) {
-			System.out.println("Bike is already in the Database");
-		} else {
-			bikeDB.add(b);
-		}
-
-	}
-	
-	public void deleteBike(Bike b) {
-		if (bikeDB.contains(b)) {
-			bikeDB.remove(b);
-		} else {
-			System.out.println("Bike not found!");
-		}
-	}
-	
 	public void changeAvailability(DateRange dateRange) {
 		if (this.dateRanges.contains(dateRange)) {
 			this.dateRanges.remove(dateRange);

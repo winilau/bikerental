@@ -10,6 +10,8 @@ public class Quote {
 	private BigDecimal price;
 	private BigDecimal deposit;
 	private boolean collection;
+	private int bookingNum = 0;
+	
 	public Quote (Provider provider, Collection<Bike> bikes, DateRange duration, 
 			BigDecimal price, BigDecimal deposit, boolean collection) {
 		this.provider = provider;
@@ -48,7 +50,8 @@ public class Quote {
 		BigDecimal totalPrice = q.getDeposit().add(q.getPrice());
 		DateRange duration = q.getDuration();
 		boolean isItCollected = q.isItForCollection();
-		Booking booked = new Booking(count, duration, totalPrice, isItCollected,me);
+		Booking booked = new Booking(this.bookingNum, duration, totalPrice, isItCollected,me);
+		this.bookingNum++;
 		return booked;
 	}
 }

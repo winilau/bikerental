@@ -2,6 +2,8 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 public class Provider {
 	
@@ -10,7 +12,7 @@ public class Provider {
 	private int phoneNum;
 	private BigDecimal depositRate;
 	public ArrayList<Provider> partners;
-	public ArrayList<Bike> bikes;
+	public static Map<Bike,Provider> providerBikes;
 	
 	public Provider(String name, Location address, int phoneNum, BigDecimal depositRate) {
 		this.name = name;
@@ -35,8 +37,8 @@ public class Provider {
 		return partners;
 	}
 
-	public ArrayList<Bike> getBikes() {
-		return bikes;
+	public Set<Bike> getBikes() {
+		return providerBikes.keySet();
 	}
 	
     public Location getAddress() {
@@ -65,13 +67,13 @@ public class Provider {
     
     public void addBike(ArrayList<Bike> bikes) {
     	for (Bike b: bikes) {
-    		this.bikes.add(b);
+    		this.providerBikes.put(b,this);
     	}
     }
     
     public void deleteBike(Bike bike) {
-    	if (this.bikes.contains(bike)) {
-    		this.bikes.remove(bike);
+    	if (this.providerBikes.containsKey(bike)) {
+    		this.providerBikes.remove(bike);
     	}
     }
 	

@@ -8,8 +8,9 @@ public class Deposit implements ValuationPolicy {
 
 	@Override
 	public BigDecimal calculateValue(Bike bike, LocalDate date) {
-		BigDecimal result;
-		result =  bike.getReplacementValue();
-		return null;
+		Provider provider = bike.getProvider();
+		BigDecimal depositRates = provider.getDepositRate();
+		BigDecimal result =  (bike.getReplacementValue().multiply(depositRates)).stripTrailingZeros();
+		return result;
 	}
 }

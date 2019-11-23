@@ -77,4 +77,8 @@ public class Bike {
 			b.inStore = true;
 		}
 	}
+	
+	public Provider getProvider() {
+		return Provider.providerBikes.get(this);
+	}
 }

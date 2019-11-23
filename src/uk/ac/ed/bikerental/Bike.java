@@ -6,22 +6,26 @@ import java.util.*;
 public class Bike {
 	private int id;
 	private BikeType bikeType;
-	private boolean available = true;
 	private boolean inStore = true;
 	private BigDecimal replacementValue;
 	public static List<Bike> bikeDB = new ArrayList<Bike>();
+	public List<DateRange> dateRanges = new ArrayList<DateRange>();
 	
-	public Bike (int id, BikeType bikeType, boolean available, boolean inStore, BigDecimal replacementValue){
+	public Bike (int id, BikeType bikeType, boolean inStore, BigDecimal replacementValue){
 		this.id = id;
 		this.bikeType = bikeType;
-		this.available = available;
 		this.inStore = inStore;
 		this.replacementValue = replacementValue;
 		
 	}
 	
-	public boolean getAvailability() {
-		return available;
+	public boolean getAvailability(DateRange dateRange) {
+		for (DateRange D: this.dateRanges) {
+			if (D.overlaps(dateRange)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public boolean isBikeInStore() {
@@ -40,10 +44,6 @@ public class Bike {
     	return id;
     }
     
-    public void info() {
-    	System.out.println("Bike information:\nId: " + id + "\nType: " + bikeType + "\n Available?: " +
-    available + "\nBike in store?: " + inStore + "\nReplacement value: " + replacementValue);
-    }
     
 	public void addBike(Bike b) {
 		if (bikeDB.contains(b)) {
@@ -62,11 +62,11 @@ public class Bike {
 		}
 	}
 	
-	public void changeAvailability(Bike b) {
-		if (b.getAvailability()==true) {
-			b.available = false;
-		} else {
-			b.available = true;
+	public void changeAvailability(DateRange dateRange) {
+		if (this.dateRanges.contains(dateRange)) {
+			this.dateRanges.remove(dateRange);
+		}else {
+			this.dateRanges.add(dateRange);
 		}
 	}
 	

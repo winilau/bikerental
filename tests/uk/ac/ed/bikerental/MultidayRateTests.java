@@ -32,10 +32,10 @@ public class MultidayRateTests {
       
       this.bikes1 = new ArrayList<Bike>(){
       {
-        add(new Bike(0, mountain, true, true, BigDecimal(100)));
-        add(new Bike(1, road, true, true, BigDecimal(200)));
-        add(new Bike(2, bmx, true, true, BigDecimal(300)));
-        add(new Bike(3, mountain, true, true, BigDecimal(100)));
+        add(new Bike(0, mountain, true, BigDecimal(100)));
+        add(new Bike(1, road, true, BigDecimal(200)));
+        add(new Bike(2, bmx, true, BigDecimal(300)));
+        add(new Bike(3, mountain, true, BigDecimal(100)));
       }};
       
       this.bikes2 = new ArrayList<Bike>(){};

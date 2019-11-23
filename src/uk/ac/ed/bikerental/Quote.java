@@ -17,4 +17,26 @@ public class Quote {
 		this.price = price;
 		this.deposit = deposit;
 	}
+	
+	public Provider getProvider() {
+		return provider;
+	}
+	
+	public Collection<Bike> getBikes() {
+		return bikes;
+	}
+	
+	public DateRange getDuration() {
+		return duration;
+	}
+	
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public BigDecimal getDeposit() {
+		return deposit;
+	}
+	
+	
 }

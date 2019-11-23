@@ -5,17 +5,17 @@ import java.util.*;
 
 public class Quote {
 	private Provider provider;
-	private Collection<Bike> bikes;
+	private Bike bike;
 	private DateRange duration;
 	private BigDecimal price;
 	private BigDecimal deposit;
 	private boolean collection;
 	private int bookingNum = 0;
 	
-	public Quote (Provider provider, Collection<Bike> bikes, DateRange duration, 
+	public Quote (Provider provider, Bike bike, DateRange duration, 
 			BigDecimal price, BigDecimal deposit, boolean collection) {
 		this.provider = provider;
-		this.bikes = bikes;
+		this.bike = bike;
 		this.duration = duration;
 		this.price = price;
 		this.deposit = deposit;
@@ -26,8 +26,8 @@ public class Quote {
 		return provider;
 	}
 	
-	public Collection<Bike> getBikes() {
-		return bikes;
+	public Bike getBike() {
+		return bike;
 	}
 	
 	public DateRange getDuration() {
@@ -46,12 +46,16 @@ public class Quote {
 		return collection;
 	}
 	
-	public Booking bookQuote(Quote q) {
-		BigDecimal totalPrice = q.getDeposit().add(q.getPrice());
-		DateRange duration = q.getDuration();
-		boolean isItCollected = q.isItForCollection();
-		Booking booked = new Booking(this.bookingNum, duration, totalPrice, isItCollected,me);
-		this.bookingNum++;
-		return booked;
+	public Booking bookQuote(Collection <Quote> quotes) {
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		for (Quote q : quotes) {
+			totalPrice = totalPrice.add(q.getDeposit().add(q.getPrice())).stripTrailingZeros();
+			DateRange duration = q.getDuration();
+			boolean isItCollected = q.isItForCollection();
+			Booking booked = new Booking(this.bookingNum, duration, totalPrice, isItCollected,me);
+			this.bookingNum++;
+			return booked;
+		}
+	
 	}
 }

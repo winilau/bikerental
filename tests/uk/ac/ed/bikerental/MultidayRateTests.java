@@ -10,6 +10,7 @@ import java.util.Collection;
 
 public class MultidayRateTests {
 	MultidayRate tester = new MultidayRate();
+	MultidayRate tester2 = new MultidayRate();
 	private DateRange dateRange1, dateRange2, dateRange3;
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
@@ -47,6 +48,10 @@ public class MultidayRateTests {
       this.tester.setDailyRentalPrice(mountain, BigDecimal(150));
       this.tester.setDailyRentalPrice(road,BigDecimal(250));
       this.tester.setDailyRentalPrice(bmx,BigDecimal(180));
+      
+      this.tester2.setDailyRentalPrice(mountain, BigDecimal(150));
+      this.tester2.setDailyRentalPrice(road,BigDecimal(250));
+      this.tester2.setDailyRentalPrice(bmx,BigDecimal(180));
  
     }
 	
@@ -80,6 +85,12 @@ public class MultidayRateTests {
 	@Test
 	void testCalculatePrice4() {
 		assertEquals(BigDecimal.ZERO, this.tester.calculatePrice(bikes2, dateRange3));
+	}
+	
+	@Test
+	void testCalculatePrice5() {
+		BigDecimal result3 = this.tester2.calculatePrice(bikes1, dateRange3);
+		assertEquals(BigDecimal(2920).stripTrailingZeros(), result3.stripTrailingZeros());
 	}
 	
 

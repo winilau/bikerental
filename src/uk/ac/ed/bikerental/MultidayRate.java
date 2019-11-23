@@ -26,7 +26,15 @@ public class MultidayRate implements PricingPolicy {
 	public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
 		BigDecimal result = BigDecimal.ZERO;
 		int bookingLength = Math.toIntExact(duration.toDays()) + 1; //converting duration to int.
-		if (bookingLength >= this.MaxDays) { //checking if we're in the last tier
+		if (discountMap.isEmpty()) {
+			for (Bike b: bikes) {
+				BikeType bikeType = b.getType();
+				BigDecimal dailyPrice = bikeMap.get(bikeType);
+				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
+				result = result.add(dailyPrice.multiply(lengthOfBooking));
+			}
+		}
+		else if (bookingLength >= this.MaxDays) { //checking if we're in the last tier
 			for (Bike b : bikes) { //looping through the collection
 				BikeType bikeType = b.getType(); //calls the Bike class getter function
 				BigDecimal dailyPrice = bikeMap.get(bikeType); //finds the daily price set by the owner for this type of bikes
@@ -49,7 +57,7 @@ public class MultidayRate implements PricingPolicy {
 				BikeType bikeType = b.getType();
 				BigDecimal dailyPrice = bikeMap.get(bikeType);
 				BigDecimal lengthOfBooking = BigDecimal.valueOf(bookingLength);
-				result = result.add(dailyPrice.multiply(lengthOfBooking)); //No discount sp price per bike is: Original price* booking length
+				result = result.add(dailyPrice.multiply(lengthOfBooking)); //No discount so price per bike is: Original price* booking length
 			}
 		}
 		return result;

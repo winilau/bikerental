@@ -66,8 +66,5 @@ public class Customer {
 		return email;
 	}
 
-	public Customer getCustomer() {
-		return this;
-	}
 
 }

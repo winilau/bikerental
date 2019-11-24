@@ -50,7 +50,9 @@ public class Quote {
 	public Booking book(Quote q, Customer customer, boolean pickUp) {
 		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();
 		DateRange duration = q.getDuration();
-		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer);
+		Collection <Bike> wantedBikes = q.getBike();
+		Provider p = q.getProvider();
+		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p);
 		this.bookingNum++;
 		return booked;
 

@@ -59,14 +59,15 @@ public class Quote {
 	 */
 	public Booking bookQuote(Quote q, Customer customer, boolean pickUp) {
 		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();  //calculate the total price by adding deposit and 
-																							//rental price together
+	   																					//rental price together
+		BigDecimal separateDeposit = q.getDeposit(); //get the deposit also separately for convenience in returns.
 		DateRange duration = q.getDuration();    //gets the date range from the queue wanted
 		Collection <Bike> wantedBikes = q.getBike();   //gets the collection of bikes from the queue wanted
 		Provider p = q.getProvider();  //gets the provider from the queue wanted
-		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p); //put all the info into a booking object
+		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p, separateDeposit); //put all the info into a booking object
 		bookingId.put(bookingNum, booked); //put the booking number and the booking into a static map so the booking can be referenced by the booking Id
 		this.bookingNum++;            //creates the unique booking number for each booking
-		for (Bike b: wantedBikes) {   //changes availability for the collection of bikes booked for the give date range
+		for (Bike b: wantedBikes) {   //changes availability for the collection of bikes booked for the given date range
 			b.changeAvailability(duration);
 		}
 		return booked;

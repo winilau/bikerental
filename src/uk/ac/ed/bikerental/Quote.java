@@ -10,7 +10,7 @@ public class Quote {
 	private BigDecimal price;
 	private BigDecimal deposit;
 	private int bookingNum = 0;
-	public static Map<Integer,Booking> bookingId = new HashMap<>();
+	public static Map<Integer,Booking> bookingIds = new HashMap<>();
 
 	/** constructor for the quote class
 	 * 
@@ -64,8 +64,13 @@ public class Quote {
 		DateRange duration = q.getDuration();    //gets the date range from the queue wanted
 		Collection <Bike> wantedBikes = q.getBike();   //gets the collection of bikes from the queue wanted
 		Provider p = q.getProvider();  //gets the provider from the queue wanted
+<<<<<<< HEAD
 		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p, separateDeposit); //put all the info into a booking object
 		bookingId.put(bookingNum, booked); //put the booking number and the booking into a static map so the booking can be referenced by the booking Id
+=======
+		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p); //put all the info into a booking object
+		bookingIds.put(bookingNum, booked); //put the booking number and the booking into a static map so the booking can be referenced by the booking Id
+>>>>>>> ce231500ecb00c43f8064ae5803dee16a2bf2cc8
 		this.bookingNum++;            //creates the unique booking number for each booking
 		for (Bike b: wantedBikes) {   //changes availability for the collection of bikes booked for the given date range
 			b.changeAvailability(duration);

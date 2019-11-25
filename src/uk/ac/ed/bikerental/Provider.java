@@ -7,13 +7,20 @@ import java.util.Set;
 
 public class Provider {
 	
-	private String name;
-	private Location address;
-	private int phoneNum;
-	private BigDecimal depositRate;
-	public ArrayList<Provider> partners;
-	public static Map<Bike,Provider> providerBikes;
+	private String name; //Provider's name
+	private Location address; // Provider's address
+	private int phoneNum; //Provider's phone Number
+	private BigDecimal depositRate; //Provider's deposit rate
+	public ArrayList<Provider> partners; //Provider's list of partners
+	public static Map<Bike,Provider> providerBikes; //Map mapping a Bike to its Provider
 	
+	/**
+	 * Constructor
+	 * @param name Provider's name
+	 * @param address Provider's address of type Location (post code, address)
+	 * @param phoneNum Provider's phone number
+	 * @param depositRate Provider's own deposit rate.
+	 */
 	public Provider(String name, Location address, int phoneNum, BigDecimal depositRate) {
 		this.name = name;
 		this.address = address;
@@ -21,6 +28,7 @@ public class Provider {
 		this.depositRate = depositRate;
 	}
 	
+	//Bellow are getter functions.
     public String getName() {
 		return name;
 	}
@@ -48,32 +56,53 @@ public class Provider {
     public String getPostCode() {
     	return this.address.getPostcode();
     }
+    //End of getter functions
     
+    /**
+     * This methods adds partners to the list of partners
+     * @param partners are the partners to be added
+     */
     public void addPartner(ArrayList<Provider> partners) {
     	for (Provider p: partners) {
     		this.partners.add(p);
     	}
     }
-
+    
+    /**
+     * This method removes a partner from the list of partners
+     * @param partner is the partner to be removes
+     */
 	public void deletePartner(Provider partner) {
     	if (this.partners.contains(partner)) {
     		this.partners.remove(partner);
     	}
     }
     
+	/**
+	 * This method allows a provider to change the deposit rate.
+	 * @param depositRate is the new deposit rate.
+	 */
     public void changeDepositRate(BigDecimal depositRate) {
     	this.depositRate = depositRate;
     }
     
+    /**
+     * This method allows the provider to add bikes to the providerBikes map
+     * @param bikes are the bikes to be added
+     */
     public void addBike(ArrayList<Bike> bikes) {
     	for (Bike b: bikes) {
-    		this.providerBikes.put(b,this);
+    		Provider.providerBikes.put(b,this);
     	}
     }
     
+    /**
+     * This method allows the provider to remove a bike from the providerBikes map
+     * @param bike is the bike to be deleted
+     */
     public void deleteBike(Bike bike) {
-    	if (this.providerBikes.containsKey(bike)) {
-    		this.providerBikes.remove(bike);
+    	if (Provider.providerBikes.containsKey(bike)) {
+    		Provider.providerBikes.remove(bike);
     	}
     }
 	

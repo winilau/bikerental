@@ -5,14 +5,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Booking {
-	private int bookingNum;
-	private DateRange duration;
-	private BigDecimal totalPrice;
-	private boolean pickUp;
-	private Customer customer;
-	private Collection<Bike> bikes = new ArrayList<>();
-	private Provider provider;
+	private int bookingNum; //Booking Number
+	private DateRange duration; // Booking length
+	private BigDecimal totalPrice; //Daily rental price + deposit
+	private boolean pickUp; //Method of collection
+	private Customer customer; //Person who ordered
+	private Collection<Bike> bikes = new ArrayList<>(); //Bikes ordered
+	private Provider provider; //Bikes' owner
 
+	/**
+	 * Constructor
+	 * @param bookingNum is the booking Number
+	 * @param duration is the length of the booking
+	 * @param totalPrice is the price including deposit
+	 * @param pickUp is a boolean that checks whether the customer is picking up the bike
+	 * true: Store collection
+	 * false: Delivery
+	 * @param customer is The customer that did the booking
+	 * @param bikes is the Collection of bikes ordered
+	 * @param provider is the owner of the selected bikes
+	 */
 	public Booking(int bookingNum, DateRange duration, BigDecimal totalPrice,
 			boolean pickUp, Customer customer, Collection<Bike> bikes, Provider provider) {
 		this.bookingNum = bookingNum;
@@ -25,6 +37,7 @@ public class Booking {
 		
 	}
 
+	//Below are getter functions.
 	public int getBookingNum() {
 		return bookingNum;
 	}

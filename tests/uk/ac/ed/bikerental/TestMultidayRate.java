@@ -87,11 +87,4 @@ public class TestMultidayRate {
 		assertEquals(BigDecimal.ZERO, this.tester.calculatePrice(bikes2, dateRange3));
 	}
 	
-	@Test
-	void testCalculatePrice5() {
-		BigDecimal result3 = this.tester2.calculatePrice(bikes1, dateRange3);
-		assertEquals(BigDecimal(2920).stripTrailingZeros(), result3.stripTrailingZeros());
-	}
-	
-
 }

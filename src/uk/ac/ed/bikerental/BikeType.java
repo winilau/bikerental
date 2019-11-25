@@ -6,7 +6,7 @@ import java.util.Set;
 //this class classifies the bike types 
 public class BikeType {
 	
-	//used the object enumerated type to define a limited amount of types avalible 
+	//used the object enumerated type to define a limited amount of types available 
 	private enum Type {
 		MOUNTAIN, CYCLOCROSS, TOURING, TANDEM, ELECTRIC, DOWNHILL, BMX, FOLDING, RECUMBENT, CRUISER, HYBRID, ROAD,
 		TRIATHLON, COMMUTING, TRACK, KIDS,
@@ -21,10 +21,12 @@ public class BikeType {
 		typeValue = Type.valueOf(type.toUpperCase());
 	}
 
+	//return the enum in String
 	public String typeValue() {
 		return typeValue.name();
 	}
-
+	
+	//getter for replacement value
 	public BigDecimal getReplacementValue() {
 		Set<Bike> bikeDB = Provider.providerBikes.keySet();
 		for (Bike bike : bikeDB) {

@@ -107,6 +107,10 @@ public class Provider {
     	}
     }
     
+    /** return bikes to provider and changes location status of the bikes
+     * 
+     * @param bookingId is the booking id of the returned booking
+     */
     public void returnBikes(int bookingId) {
     	Booking booking = Quote.bookingId.get(bookingId);
     	

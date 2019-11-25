@@ -70,6 +70,7 @@ public class Quote {
 		for (Bike b: wantedBikes) {   //changes availability for the collection of bikes booked for the given date range
 			b.changeAvailability(duration);
 		}
+		//have to implement the delivery service
 		return booked;
 
 	}

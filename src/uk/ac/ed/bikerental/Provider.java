@@ -2,6 +2,7 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,9 +102,26 @@ public class Provider {
      * @param bike is the bike to be deleted
      */
     public void deleteBike(Bike bike) {
-    	if (Provider.providerBikes.containsKey(bike)) {
-    		Provider.providerBikes.remove(bike);
+    	if (providerBikes.containsKey(bike)) {
+    		providerBikes.remove(bike);
     	}
     }
-	
+    
+    public void returnBikes(int bookingId) {
+    	Booking booking = Quote.bookingId.get(bookingId);
+    	
+    	if (booking.getProvider() == this) {
+    		Collection<Bike> bikes = booking.getBikes();
+        	for (Bike b: bikes) {
+        		b.changeLocation();
+        	}
+    	}else {
+    		//implement the delivery of bike to original provider
+    		Collection<Bike> bikes = booking.getBikes();
+        	for (Bike b: bikes) {
+        		b.changeLocation();
+        	}
+    	}
+    	
+    }
 }

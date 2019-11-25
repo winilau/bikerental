@@ -12,6 +12,7 @@ public class Booking {
 	private Customer customer; //Person who ordered
 	private Collection<Bike> bikes = new ArrayList<>(); //Bikes ordered
 	private Provider provider; //Bikes' owner
+	private BigDecimal deposit; //total deposit
 
 	/**
 	 * Constructor
@@ -24,9 +25,10 @@ public class Booking {
 	 * @param customer is The customer that did the booking
 	 * @param bikes is the Collection of bikes ordered
 	 * @param provider is the owner of the selected bikes
+	 * @param deposit is the deposit amount for the booking
 	 */
 	public Booking(int bookingNum, DateRange duration, BigDecimal totalPrice,
-			boolean pickUp, Customer customer, Collection<Bike> bikes, Provider provider) {
+			boolean pickUp, Customer customer, Collection<Bike> bikes, Provider provider, BigDecimal deposit) {
 		this.bookingNum = bookingNum;
 		this.duration = duration;
 		this.totalPrice = totalPrice;
@@ -34,6 +36,7 @@ public class Booking {
 		this.customer = customer;
 		this.bikes = bikes;
 		this.provider = provider;
+		this.deposit = deposit;
 		
 	}
 
@@ -66,4 +69,7 @@ public class Booking {
 		return provider;
 	}
 	
+	public BigDecimal getDeposit() {
+		return deposit;
+	}
 }

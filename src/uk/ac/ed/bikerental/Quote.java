@@ -11,6 +11,14 @@ public class Quote {
 	private BigDecimal deposit;
 	private int bookingNum = 0;
 
+	/** constructor for the quote class
+	 * 
+	 * @param provider 
+	 * @param bikes
+	 * @param duration
+	 * @param price
+	 * @param deposit
+	 */
 	public Quote(Provider provider, Collection <Bike> bikes, DateRange duration, BigDecimal price, BigDecimal deposit) {
 		this.provider = provider;
 		this.bikes = bikes;
@@ -19,6 +27,7 @@ public class Quote {
 		this.deposit = deposit;
 	}
 
+	//below are getter methods for this class
 	public Provider getProvider() {
 		return provider;
 	}
@@ -47,13 +56,17 @@ public class Quote {
 	 * 					 if true, customer picks up bike
 	 * @return			 the booking of the chosen quote
 	 */
-	public Booking book(Quote q, Customer customer, boolean pickUp) {
-		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();
-		DateRange duration = q.getDuration();
-		Collection <Bike> wantedBikes = q.getBike();
-		Provider p = q.getProvider();
+	public Booking bookQuote(Quote q, Customer customer, boolean pickUp) {
+		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();  //calculate the total price by adding deposit and 
+																							//rental price together
+		DateRange duration = q.getDuration();    //gets the date range from the queue wanted
+		Collection <Bike> wantedBikes = q.getBike();   //gets the collection of bikes from the queue wanted
+		Provider p = q.getProvider();  //gets the provider from the queue wanted
 		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p);
-		this.bookingNum++;
+		this.bookingNum++;            //creates the unique booking number for each booking
+		for (Bike b: wantedBikes) {   //changes availability for the collection of bikes booked for the give date range
+			b.changeAvailability(duration);
+		}
 		return booked;
 
 	}

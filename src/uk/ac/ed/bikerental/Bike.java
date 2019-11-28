@@ -4,10 +4,10 @@ import java.math.*;
 import java.util.*;
 
 public class Bike {
-	private int id;
 	private BikeType bikeType; 
 	private boolean inStore = true; 
-	public List<DateRange> dateRanges = new ArrayList<DateRange>();
+	public Provider provider;
+	public Collection<DateRange> dateRanges = new ArrayList<DateRange>();
 	
 	/**
 	 * Constructor
@@ -17,10 +17,11 @@ public class Bike {
 	 * @param replacementValue is the replacement value of the Bike
 	 */
 	
-	public Bike (int id, BikeType bikeType, boolean inStore){
-		this.id = id;
+	public Bike (BikeType bikeType, boolean inStore, Provider provider){
 		this.bikeType = bikeType;
 		this.inStore = inStore;
+		this.provider = provider;
+		provider.addBike(this);
 	}
 
 	/**
@@ -51,8 +52,8 @@ public class Bike {
     	return bikeType.getReplacementValue();
     }
     
-    public int getId() {
-    	return id;
+    public Provider getProvider() {
+    	return this.provider;
     }
     
     /**
@@ -82,14 +83,5 @@ public class Bike {
 		} else {
 			inStore = true;
 		}
-	}
-	
-	/**
-	 * This getter function gets the bike's provider from the map 
-	 * providerBikes is mapping a Provider to the owned bikes.
-	 * @return it returns the right provider.
-	 */
-	public Provider getProvider() {
-		return Provider.providerBikes.get(this);
 	}
 }

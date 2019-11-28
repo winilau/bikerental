@@ -10,7 +10,7 @@ public class Quote {
 	private BigDecimal price;
 	private BigDecimal deposit;
 	private int bookingNum = 0;
-	public static Map<Integer,Booking> bookingId = new HashMap<>();
+	public Map<Integer,Booking> bookingId = new HashMap<>();
 
 	/** constructor for the quote class
 	 * 

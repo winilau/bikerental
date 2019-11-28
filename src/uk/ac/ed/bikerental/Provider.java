@@ -12,8 +12,8 @@ public class Provider {
 	private Location address; 
 	private int phoneNum; 
 	private BigDecimal depositRate; 
-	public ArrayList<Provider> partners; 
-	public static Map<Bike,Provider> providerBikes; 
+	public Collection<Provider> partners; 
+	public Map<Provider, Collection<Bike>> providerBikes;
 	
 	/**
 	 * Constructor
@@ -29,7 +29,6 @@ public class Provider {
 		this.depositRate = depositRate;
 	}
 	
-	//Bellow are getter functions.
     public String getName() {
 		return name;
 	}
@@ -42,12 +41,12 @@ public class Provider {
 		return depositRate;
 	}
 
-	public ArrayList<Provider> getPartners() {
+	public Collection<Provider> getPartners() {
 		return partners;
 	}
 
-	public Set<Bike> getBikes() {
-		return providerBikes.keySet();
+	public Collection<Bike> getBikes() {
+		return providerBikes.get(this);
 	}
 	
     public Location getAddress() {
@@ -57,7 +56,7 @@ public class Provider {
     public String getPostCode() {
     	return this.address.getPostcode();
     }
-    //End of getter functions
+ 
     
     /**
      * This methods adds partners to the list of partners
@@ -91,10 +90,18 @@ public class Provider {
      * This method allows the provider to add bikes to the providerBikes map
      * @param bikes are the bikes to be added
      */
-    public void addBike(ArrayList<Bike> bikes) {
+    public void addBike(Collection<Bike> bikes) {
+    	Collection<Bike> newBikes = providerBikes.get(this);
     	for (Bike b: bikes) {
-    		Provider.providerBikes.put(b,this);
+    		newBikes.add(b);
     	}
+    	providerBikes.put(this,newBikes);
+    }
+    
+    public void addBike(Bike bike) {
+    	Collection<Bike> newBikes = providerBikes.get(this);
+    	newBikes.add(bike);
+    	providerBikes.put(this,newBikes);
     }
     
     /**
@@ -102,8 +109,10 @@ public class Provider {
      * @param bike is the bike to be deleted
      */
     public void deleteBike(Bike bike) {
-    	if (providerBikes.containsKey(bike)) {
-    		providerBikes.remove(bike);
+    	Collection<Bike> original = providerBikes.get(this);
+    	if (original.contains(bike)) {
+    		original.remove(bike);
+    		providerBikes.put(this, original);
     	}
     }
     

@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class Provider {
 	
-	private String name; //Provider's name
-	private Location address; // Provider's address
-	private int phoneNum; //Provider's phone Number
-	private BigDecimal depositRate; //Provider's deposit rate
-	public ArrayList<Provider> partners; //Provider's list of partners
-	public static Map<Bike,Provider> providerBikes; //Map mapping a Bike to its Provider
+	private String name; 
+	private Location address; 
+	private int phoneNum; 
+	private BigDecimal depositRate; 
+	public ArrayList<Provider> partners; 
+	public static Map<Bike,Provider> providerBikes; 
 	
 	/**
 	 * Constructor

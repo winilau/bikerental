@@ -23,21 +23,20 @@ public class PricingPolicyTests {
 		this.dateRange2 = new DateRange(LocalDate.of(2019, 1, 5), LocalDate.of(2019, 1, 27));
 		this.dateRange3 = new DateRange(LocalDate.of(2018, 1, 7), LocalDate.of(2018, 1, 10));
 
-		this.mountain = new BikeType("mountain");
-		this.road = new BikeType("road");
-		this.bmx = new BikeType("bmx");
+		this.mountain = new BikeType("mountain",BigDecimal.ONE);
+		this.road = new BikeType("road",BigDecimal.TEN);
+		this.bmx = new BikeType("bmx", BigDecimal.ZERO);
 
 		this.bikes1 = new ArrayList<Bike>() {
 			{
-				add(new Bike(0, mountain, true, BigDecimal(100)));
-				add(new Bike(1, road, true, BigDecimal(200)));
-				add(new Bike(2, bmx, true, BigDecimal(300)));
-				add(new Bike(3, mountain, true, BigDecimal(100)));
+				add(new Bike(0, mountain, true));
+				add(new Bike(1, road, true));
+				add(new Bike(2, bmx, true));
+				add(new Bike(3, mountain, true));
 			}
 		};
 
-		this.bikes2 = new ArrayList<Bike>() {
-		};
+		this.bikes2 = new ArrayList<Bike>() {};
 
 		this.tester.setDailyRentalPrice(mountain, BigDecimal(150));
 		this.tester.setDailyRentalPrice(road, BigDecimal(250));
@@ -51,8 +50,27 @@ public class PricingPolicyTests {
 	}
 
 	@Test
+	//testing without discount
 	void testCalculatePrice1() {
-		BigDecimal result = this.tester.calculatePrice(bikes1, dateRange3);
-		assertEquals(BigDecimal(2920).stripTrailingZeros(), result.stripTrailingZeros());
+		BigDecimal result = this.tester.calculatePrice(bikes1, dateRange3).stripTrailingZeros();
+		assertEquals(BigDecimal(2920).stripTrailingZeros(), result);
+	}
+	@Test
+	//testing without discount
+	void testCalculatePrice2() {
+		BigDecimal result = this.tester.calculatePrice(bikes1, dateRange1).stripTrailingZeros();
+		assertEquals(BigDecimal(730).stripTrailingZeros(), result);
+	}
+	@Test
+	//testing without discount
+	void testCalculatePrice3() {
+		BigDecimal result = this.tester.calculatePrice(bikes1, dateRange2).stripTrailingZeros();
+		assertEquals(BigDecimal(16790).stripTrailingZeros(), result);
+	}
+	@Test
+	//no bikes
+	void testCalculatePrice4() {
+		BigDecimal result = this.tester.calculatePrice(bikes2, dateRange2).stripTrailingZeros();
+		assertEquals(BigDecimal(0).stripTrailingZeros(), result);
 	}
 }

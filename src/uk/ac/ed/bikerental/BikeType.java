@@ -10,10 +10,12 @@ public class BikeType {
 	
 	public Map<String,BigDecimal> bikeTypeValue = new HashMap<>();
 	public String bikeType;
+	public BigDecimal replacementValue;
 	
 	public BikeType(String bikeType,BigDecimal replacementValue) {
 		bikeType.toLowerCase();
 		this.bikeType = bikeType;
+		this.replacementValue = replacementValue;
 		this.bikeTypeValue.put(bikeType,replacementValue);
 	}
 	
@@ -25,9 +27,8 @@ public class BikeType {
 		return this.bikeTypeValue.keySet();
 	}
 	
-	public BigDecimal getReplacementValue(String type) {
-		type.toLowerCase();
-		return this.bikeTypeValue.get(type);
+	public BigDecimal getReplacementValue() {
+		return this.replacementValue;
 	}
 	
 }

@@ -7,7 +7,6 @@ public class Bike {
 	private int id;
 	private BikeType bikeType; 
 	private boolean inStore = true; 
-	private BigDecimal replacementValue; 
 	public List<DateRange> dateRanges = new ArrayList<DateRange>();
 	
 	/**
@@ -18,11 +17,10 @@ public class Bike {
 	 * @param replacementValue is the replacement value of the Bike
 	 */
 	
-	public Bike (int id, BikeType bikeType, boolean inStore, BigDecimal replacementValue){
+	public Bike (int id, BikeType bikeType, boolean inStore){
 		this.id = id;
 		this.bikeType = bikeType;
 		this.inStore = inStore;
-		this.replacementValue = replacementValue;
 	}
 
 	/**
@@ -50,7 +48,7 @@ public class Bike {
     }
     
     public BigDecimal getReplacementValue() {
-    	return replacementValue;
+    	return bikeType.getReplacementValue();
     }
     
     public int getId() {

@@ -26,19 +26,19 @@ public class TestMultidayRate {
       this.dateRange3 = new DateRange(LocalDate.of(2018, 1, 7),
               LocalDate.of(2018, 1, 10));
       
-      this.mountain = new BikeType("mountain");
-      this.road = new BikeType("road");
-      this.bmx = new BikeType("bmx");
+      this.mountain = new BikeType("mountain", BigDecimal.ONE);
+      this.road = new BikeType("road",BigDecimal.ONE);
+      this.bmx = new BikeType("bmx",BigDecimal.ONE);
       
       this.bikes1 = new ArrayList<Bike>(){
       {
-        add(new Bike(0, mountain, true, BigDecimal(100)));
-        add(new Bike(1, road, true, BigDecimal(200)));
-        add(new Bike(2, bmx, true, BigDecimal(300)));
-        add(new Bike(3, mountain, true, BigDecimal(100)));
+        add(new Bike(0, mountain, true));
+        add(new Bike(1, road, true));
+        add(new Bike(2, bmx, true));
+        add(new Bike(3, mountain, true));
       }};
       
-      this.bikes2 = new ArrayList<Bike>(){};
+      this.bikes2 = new ArrayList<Bike>() {};
       
       this.tester.setDiscount(1,2,BigDecimal.ZERO);
       this.tester.setDiscount(3,6,BigDecimal(0.05));

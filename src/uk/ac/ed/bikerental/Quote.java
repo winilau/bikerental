@@ -11,7 +11,7 @@ public class Quote extends System {
 	private BigDecimal deposit;
 	private int bookingNum = 0;
 	
-	public Collection<Quote> avalibleQuotes = new ArrayList<>();
+	public Collection<Quote> availableQuotes = new ArrayList<>();
 
 	/** constructor for the quote class
 	 * 
@@ -50,16 +50,36 @@ public class Quote extends System {
 		return deposit;
 	}
 	
-	public Collection<Quote> getQuotes(DateRange dateRange, Map<Integer, BikeType> preferece) {
+	public Collection<Quote> getQuotes(DateRange dateRange, Map<BikeType, Integer> preference) {
 		MultidayRate calc = new MultidayRate();  //for calculation 
 		Deposit calcDeposit = new Deposit();     //for calculation
-		Set<Provider> providers = provider.providerBikes.keySet(); //all providers
 		
-		for (Provider p:providers) {
-			
+		for (Provider p: providers) {
+			Collection<Bike> matched = new ArrayList<>();
+			for (Map.Entry<BikeType, Integer> entry: preference.entrySet()) {
+				BikeType type = entry.getKey();
+				Integer amount = entry.getValue();
+				int count = 0;
+				Collection<Bike> bikes = p.getBikes();
+				for (Bike b:bikes) {
+					if (b.getType() == type && b.getAvailability(dateRange)) {
+						if (count < amount) {
+							matched.add(b);
+						}
+						count++;
+					}
+				}
+				if (count < amount) {
+					break;
+				}
+			}
+			BigDecimal totalPrice = calc.calculatePrice(matched, dateRange).stripTrailingZeros();
+			BigDecimal totalDeposit = calcDeposit.calculateAllValue(matched).stripTrailingZeros();
+			Quote result = new Quote(p, matched, dateRange, totalPrice, totalDeposit);
+			availableQuotes.add(result);
 		}
 		
-		return null;
+		return availableQuotes;
 	}
 
 	/**

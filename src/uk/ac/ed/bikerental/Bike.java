@@ -3,7 +3,7 @@ package uk.ac.ed.bikerental;
 import java.math.*;
 import java.util.*;
 
-public class Bike {
+public class Bike implements Deliverable {
 	private BikeType bikeType; 
 	private boolean inStore = true; 
 	public Provider provider;
@@ -83,5 +83,15 @@ public class Bike {
 		} else {
 			inStore = true;
 		}
+	}
+
+	@Override
+	public void onPickup() {
+		changeLocation();
+	}
+
+	@Override
+	public void onDropoff() {
+		changeLocation();
 	}
 }

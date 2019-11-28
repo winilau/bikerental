@@ -1,12 +1,15 @@
 package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Collection;
 
 public class Deposit implements ValuationPolicy {
 	
-
+	MathContext MATH_CTX = new MathContext(3,RoundingMode.HALF_UP);
+	
 	@Override
 	
 	/** calculates the deposit value
@@ -18,7 +21,7 @@ public class Deposit implements ValuationPolicy {
 	public BigDecimal calculateValue(Bike bike, LocalDate date) {
 		Provider provider = bike.getProvider();
 		BigDecimal depositRates = provider.getDepositRate();
-		BigDecimal result =  (bike.getReplacementValue().multiply(depositRates)).stripTrailingZeros();
+		BigDecimal result =  (bike.getReplacementValue().multiply(depositRates)).round(MATH_CTX).stripTrailingZeros();
 		return result;
 	}
 	
@@ -27,7 +30,7 @@ public class Deposit implements ValuationPolicy {
 	public BigDecimal calculateValue(Bike bike) {
 		Provider provider = bike.getProvider();
 		BigDecimal depositRates = provider.getDepositRate();
-		BigDecimal result =  (bike.getReplacementValue().multiply(depositRates)).stripTrailingZeros();
+		BigDecimal result =  (bike.getReplacementValue().multiply(depositRates)).round(MATH_CTX).stripTrailingZeros();
 		return result;
 	}
 	

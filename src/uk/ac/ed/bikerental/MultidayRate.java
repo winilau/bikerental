@@ -81,4 +81,5 @@ public class MultidayRate implements PricingPolicy {
 		this.MaxDays = start;
 		this.MaxDiscount = roundedDiscount;
 	}
+	
 }

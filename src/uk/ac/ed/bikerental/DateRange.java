@@ -89,6 +89,6 @@ public class DateRange {
     // You can add your own methods here
     @Override
     public String toString() {
-    	return String.format("From: " + start + "to: "+ end);
+    	return String.format("From: " + start + " to: "+ end);
     }
 }

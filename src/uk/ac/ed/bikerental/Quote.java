@@ -30,7 +30,7 @@ public class Quote extends SystemClass {
 	//below are getter methods for this class
 	@Override
 	public String toString() {
-		return String.format(provider + "," + bikes + "," + duration + "," + price + "," + deposit );
+		return String.format(provider + "," + bikes + "," + duration + "," + price + "," + deposit);
 	}
 	public Provider getProvider() {
 		return provider;

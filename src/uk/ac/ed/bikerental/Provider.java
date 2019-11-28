@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public class Provider {
+public class Provider extends System {
 	
 	private String name; 
 	private Location address; 
@@ -14,6 +14,7 @@ public class Provider {
 	private BigDecimal depositRate; 
 	public ArrayList<Provider> partners; 
 	public static Map<Bike,Provider> providerBikes; 
+
 	
 	/**
 	 * Constructor
@@ -111,8 +112,8 @@ public class Provider {
      * 
      * @param bookingId is the booking id of the returned booking
      */
-    public void returnBikes(int bookingId) {
-    	Booking booking = Quote.bookingId.get(bookingId);
+    public void returnBikes(int bookingNum) {	
+    	Booking booking = bookingId.get(bookingNum);
     	
     	if (booking.getProvider() == this) {
     		Collection<Bike> bikes = booking.getBikes();

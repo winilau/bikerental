@@ -3,14 +3,14 @@ package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class Quote {
+public class Quote extends System {
 	private Provider provider;
 	private Collection <Bike> bikes;
 	private DateRange duration;
 	private BigDecimal price;
 	private BigDecimal deposit;
 	private int bookingNum = 0;
-	public Map<Integer,Booking> bookingId = new HashMap<>();
+	
 	public Collection<Quote> avalibleQuotes = new ArrayList<>();
 
 	/** constructor for the quote class

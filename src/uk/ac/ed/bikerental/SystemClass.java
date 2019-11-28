@@ -96,7 +96,7 @@ public class SystemClass {
 		}
 		//have to implement the delivery service
 		if (!pickUp) {
-			
+		DeliveryServiceFactory.getDeliveryService();
 		}
 		return booked;
 

@@ -102,4 +102,26 @@ public class SystemClass {
 
 	}
 	
+    /** return bikes to provider and changes location status of the bikes
+     * 
+     * @param bookingId is the booking id of the returned booking
+     */
+    public void returnBikes(int bookingNum, Provider p) {
+    	Booking booking = bookingId.get(bookingNum);
+    	
+    	if (booking.getProvider() == p) {
+    		Collection<Bike> bikes = booking.getBikes();
+        	for (Bike b: bikes) {
+        		b.changeLocation();
+        	}
+    	}else {
+    		//implement the delivery of bike to original provider
+    		Collection<Bike> bikes = booking.getBikes();
+        	for (Bike b: bikes) {
+        		b.changeLocation();
+        	}
+    	}
+    	
+    }
+	
 }

@@ -139,27 +139,7 @@ public class Provider extends SystemClass{
     }
     
     
-    /** return bikes to provider and changes location status of the bikes
-     * 
-     * @param bookingId is the booking id of the returned booking
-     */
-    public void returnBikes(int bookingNum) {
-    	Booking booking = bookingId.get(bookingNum);
-    	
-    	if (booking.getProvider() == this) {
-    		Collection<Bike> bikes = booking.getBikes();
-        	for (Bike b: bikes) {
-        		b.changeLocation();
-        	}
-    	}else {
-    		//implement the delivery of bike to original provider
-    		Collection<Bike> bikes = booking.getBikes();
-        	for (Bike b: bikes) {
-        		b.changeLocation();
-        	}
-    	}
-    	
-    }
+
     
     @Override
     public String toString() {

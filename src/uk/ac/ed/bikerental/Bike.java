@@ -4,11 +4,10 @@ import java.math.*;
 import java.util.*;
 
 public class Bike {
-	private int id; //Bike's id
-	private BikeType bikeType; // Bike Type
-	private boolean inStore = true; //Bike location
-	private BigDecimal replacementValue; //Bike's replacement Value
-	//below is the list of non-available date ranges
+	private int id;
+	private BikeType bikeType; 
+	private boolean inStore = true; 
+	private BigDecimal replacementValue; 
 	public List<DateRange> dateRanges = new ArrayList<DateRange>();
 	
 	/**
@@ -19,14 +18,13 @@ public class Bike {
 	 * @param replacementValue is the replacement value of the Bike
 	 */
 	
-	
 	public Bike (int id, BikeType bikeType, boolean inStore, BigDecimal replacementValue){
 		this.id = id;
 		this.bikeType = bikeType;
 		this.inStore = inStore;
 		this.replacementValue = replacementValue;
-		
 	}
+
 	/**
 	 * This method gets the availability of the bike (checks the list)
 	 * @param dateRange The availability of the bike depends of the given date range
@@ -43,7 +41,6 @@ public class Bike {
 		return true;
 	}
 	
-	// Below are getter functions.
 	public boolean isBikeInStore() {
 		return inStore;
 	}
@@ -59,7 +56,6 @@ public class Bike {
     public int getId() {
     	return id;
     }
-    // End of getter functions
     
     /**
      * This method changes the Availability of the bike (updates the list).

@@ -6,7 +6,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class MultidayRate implements PricingPolicy {
-
 	public Map<BikeType, BigDecimal> bikeMap = new HashMap<BikeType, BigDecimal>();
 	public Map<Integer, BigDecimal> discountMap = new HashMap<Integer, BigDecimal>();
 	private int MaxDays;

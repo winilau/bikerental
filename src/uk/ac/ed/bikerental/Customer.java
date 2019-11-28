@@ -1,10 +1,10 @@
 package uk.ac.ed.bikerental;
 
 public class Customer {
-	private String name; //Customer's name
-	private Location address; //Customer's address
-	private int phoneNum; //Customer's phone number
-	private String email; //Customer's email
+	private String name; 
+	private Location address; 
+	private String phoneNum; 
+	private String email;
 
 	/**
 	 * Constructor
@@ -13,7 +13,7 @@ public class Customer {
 	 * @param phoneNum is the customer's phone Number.
 	 * @param email is the customer's email
 	 */
-	public Customer(String name, Location address, int phoneNum, String email) {
+	public Customer(String name, Location address, String phoneNum, String email) {
 		this.name = name;
 		this.address = address;
 		this.phoneNum = phoneNum;
@@ -29,7 +29,7 @@ public class Customer {
 		return address;
 	}
 
-	public int getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 

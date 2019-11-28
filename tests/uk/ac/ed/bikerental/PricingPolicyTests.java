@@ -15,7 +15,7 @@ public class PricingPolicyTests {
 	private DateRange dateRange1, dateRange2, dateRange3;
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
-	private Provider provider = new Provider("name", null, 0, null);
+	private Provider provider = new Provider("name", null, "", null);
 
 	@BeforeEach
 	void setUp() throws Exception {

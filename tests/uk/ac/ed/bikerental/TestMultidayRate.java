@@ -14,7 +14,7 @@ public class TestMultidayRate {
 	private DateRange dateRange1, dateRange2, dateRange3;
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
-	private Provider provider = new Provider("name", null, 0, null);
+	private Provider provider = new Provider("name", null, "", null);
 
 	@BeforeEach
     void setUp() throws Exception {
@@ -49,21 +49,13 @@ public class TestMultidayRate {
       this.tester.setDailyRentalPrice(mountain, BigDecimal(150));
       this.tester.setDailyRentalPrice(road,BigDecimal(250));
       this.tester.setDailyRentalPrice(bmx,BigDecimal(180));
-      
-      this.tester2.setDailyRentalPrice(mountain, BigDecimal(150));
-      this.tester2.setDailyRentalPrice(road,BigDecimal(250));
-      this.tester2.setDailyRentalPrice(bmx,BigDecimal(180));
  
     }
 	
-
-
 	private BigDecimal BigDecimal(double i) {
 		BigDecimal result = new BigDecimal(i);
 		return result;
 	}
-
-
 
 	@Test
 	//no discount because only one day

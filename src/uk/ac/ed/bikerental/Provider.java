@@ -7,15 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Provider extends System{
+public class Provider extends SystemClass{
 	
 	private String name = "Chandler Bing"; 
 	private Location address = new Location("000000", "central perks"); 
-	private int phoneNum = 12345678; 
+	private String phoneNum = "12345678"; 
 	private BigDecimal depositRate = BigDecimal.ZERO; 
 	public Collection<Provider> partners = new ArrayList<>(); 
 	public Collection<Bike> empty = new ArrayList<>();
-	public Map<Provider, Collection<Bike>> providerBikes = new HashMap<>();
 	
 	/**
 	 * Constructor
@@ -24,19 +23,20 @@ public class Provider extends System{
 	 * @param phoneNum Provider's phone number
 	 * @param depositRate Provider's own deposit rate.
 	 */
-	public Provider(String name, Location address, int phoneNum, BigDecimal depositRate) {
+	public Provider(String name, Location address, String phoneNum, BigDecimal depositRate) {
 		this.name = name;
 		this.address = address;
 		this.phoneNum = phoneNum;
 		this.depositRate = depositRate;
 		providerBikes.put(this, empty);
+		super.providers.add(this);
 	}
 	
     public String getName() {
 		return name;
 	}
 
-	public int getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
@@ -159,5 +159,10 @@ public class Provider extends System{
         	}
     	}
     	
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format(name);
     }
 }

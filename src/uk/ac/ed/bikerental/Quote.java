@@ -51,9 +51,6 @@ public class Quote extends System {
 	}
 	
 	public Collection<Quote> getQuotes(DateRange dateRange, Map<BikeType, Integer> preference) {
-		MultidayRate calc = new MultidayRate();  //for calculation 
-		Deposit calcDeposit = new Deposit();     //for calculation
-		
 		for (Provider p: providers) {
 			Collection<Bike> matched = new ArrayList<>();
 			for (Map.Entry<BikeType, Integer> entry: preference.entrySet()) {
@@ -73,7 +70,7 @@ public class Quote extends System {
 					break;
 				}
 			}
-			BigDecimal totalPrice = calc.calculatePrice(matched, dateRange).stripTrailingZeros();
+			BigDecimal totalPrice = calcP.calculatePrice(matched, dateRange).stripTrailingZeros();
 			BigDecimal totalDeposit = calcDeposit.calculateAllValue(matched).stripTrailingZeros();
 			Quote result = new Quote(p, matched, dateRange, totalPrice, totalDeposit);
 			availableQuotes.add(result);

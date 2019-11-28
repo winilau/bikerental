@@ -15,7 +15,7 @@ public class TestMultidayRate {
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
 	private Provider provider = new Provider("name", null, 0, null);
-;
+
 	@BeforeEach
     void setUp() throws Exception {
       // Setup resources before each test
@@ -74,6 +74,7 @@ public class TestMultidayRate {
 	
 	@Test
 	//discount rate 0.15 or 15 percent off (more than 14 days)
+	//(150 + 250 + 180 + 250) * (23) * (1 - 0.15) = 14271.5
 	void testCalculatePrice2() {
 		BigDecimal result2 = this.tester.calculatePrice(bikes1, dateRange2);		
 		assertEquals(BigDecimal(14271.5).stripTrailingZeros(), result2.stripTrailingZeros());
@@ -81,6 +82,7 @@ public class TestMultidayRate {
 	
 	@Test
 	//discount rate 0.05 or 5 percent off (4 days)
+	//(150 + 250 + 180 + 250) * 4 * (1-0.05) = 2774
 	void testCalculatePrice3() {
 		BigDecimal result3 = this.tester.calculatePrice(bikes1, dateRange3);
 		assertEquals(BigDecimal(2774).stripTrailingZeros(), result3.stripTrailingZeros());

@@ -3,17 +3,19 @@ package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Provider extends System{
 	
-	private String name; 
-	private Location address; 
-	private int phoneNum; 
-	private BigDecimal depositRate; 
-	public Collection<Provider> partners; 
-	public Map<Provider, Collection<Bike>> providerBikes;
+	private String name = "Chandler Bing"; 
+	private Location address = new Location("000000", "central perks"); 
+	private int phoneNum = 12345678; 
+	private BigDecimal depositRate = BigDecimal.ZERO; 
+	public Collection<Provider> partners = new ArrayList<>(); 
+	public Collection<Bike> empty = new ArrayList<>();
+	public Map<Provider, Collection<Bike>> providerBikes = new HashMap<>();
 	
 	/**
 	 * Constructor
@@ -27,6 +29,7 @@ public class Provider extends System{
 		this.address = address;
 		this.phoneNum = phoneNum;
 		this.depositRate = depositRate;
+		providerBikes.put(this, empty);
 	}
 	
     public String getName() {

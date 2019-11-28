@@ -15,6 +15,7 @@ public class PricingPolicyTests {
 	private DateRange dateRange1, dateRange2, dateRange3;
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
+	private Provider provider = new Provider("name", null, 0, null);
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -29,10 +30,10 @@ public class PricingPolicyTests {
 
 		this.bikes1 = new ArrayList<Bike>() {
 			{
-				add(new Bike(0, mountain, true));
-				add(new Bike(1, road, true));
-				add(new Bike(2, bmx, true));
-				add(new Bike(3, mountain, true));
+				add(new Bike(mountain, true, provider));
+				add(new Bike(road, true, provider));
+				add(new Bike(bmx, true, provider));
+				add(new Bike(mountain, true, provider));
 			}
 		};
 
@@ -68,7 +69,7 @@ public class PricingPolicyTests {
 		assertEquals(BigDecimal(16790).stripTrailingZeros(), result);
 	}
 	@Test
-	//no bikes
+	//no bikes so should return zero
 	void testCalculatePrice4() {
 		BigDecimal result = this.tester.calculatePrice(bikes2, dateRange2).stripTrailingZeros();
 		assertEquals(BigDecimal(0).stripTrailingZeros(), result);

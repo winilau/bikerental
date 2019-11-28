@@ -14,7 +14,8 @@ public class TestMultidayRate {
 	private DateRange dateRange1, dateRange2, dateRange3;
 	private Collection<Bike> bikes1, bikes2;
 	private BikeType mountain, road, bmx;
-
+	private Provider provider = new Provider("name", null, 0, null);
+;
 	@BeforeEach
     void setUp() throws Exception {
       // Setup resources before each test
@@ -32,10 +33,10 @@ public class TestMultidayRate {
       
       this.bikes1 = new ArrayList<Bike>(){
       {
-        add(new Bike(0, mountain, true));
-        add(new Bike(1, road, true));
-        add(new Bike(2, bmx, true));
-        add(new Bike(3, mountain, true));
+        add(new Bike(mountain, true,provider));
+        add(new Bike(road, true,provider));
+        add(new Bike(bmx, true,provider));
+        add(new Bike(mountain, true,provider));
       }};
       
       this.bikes2 = new ArrayList<Bike>() {};
@@ -65,24 +66,28 @@ public class TestMultidayRate {
 
 
 	@Test
+	//no discount because only one day
 	void testCalculatePrice1() {
 		BigDecimal result1 = this.tester.calculatePrice(bikes1, dateRange1);
 		assertEquals(BigDecimal(730).stripTrailingZeros(), result1.stripTrailingZeros());
 	}
 	
 	@Test
+	//discount rate 0.15 or 15 percent off (more than 14 days)
 	void testCalculatePrice2() {
 		BigDecimal result2 = this.tester.calculatePrice(bikes1, dateRange2);		
 		assertEquals(BigDecimal(14271.5).stripTrailingZeros(), result2.stripTrailingZeros());
 	}
 	
 	@Test
+	//discount rate 0.05 or 5 percent off (4 days)
 	void testCalculatePrice3() {
 		BigDecimal result3 = this.tester.calculatePrice(bikes1, dateRange3);
 		assertEquals(BigDecimal(2774).stripTrailingZeros(), result3.stripTrailingZeros());
 	}
 	
 	@Test
+	//no bikes so should return zero
 	void testCalculatePrice4() {
 		assertEquals(BigDecimal.ZERO, this.tester.calculatePrice(bikes2, dateRange3));
 	}

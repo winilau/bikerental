@@ -19,6 +19,10 @@ public class BikeType {
 		this.bikeTypeValue.put(bikeType,replacementValue);
 	}
 	
+	public String getString() {
+		return this.bikeType;
+	}
+	
 	public void addBikeType(String type, BigDecimal replacementValue) {
 		this.bikeTypeValue.put(type.toLowerCase(),replacementValue);
 	}

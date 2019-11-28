@@ -3,7 +3,7 @@ package uk.ac.ed.bikerental;
 import java.math.*;
 import java.util.*;
 
-public class Bike implements Deliverable {
+public class Bike extends SystemClass implements Deliverable {
 	private BikeType bikeType; 
 	private boolean inStore = true; 
 	public Provider provider;
@@ -23,7 +23,7 @@ public class Bike implements Deliverable {
 		this.provider = provider;
 		provider.addBike(this);
 	}
-
+	
 	/**
 	 * This method gets the availability of the bike (checks the list)
 	 * @param dateRange The availability of the bike depends of the given date range
@@ -93,5 +93,10 @@ public class Bike implements Deliverable {
 	@Override
 	public void onDropoff() {
 		changeLocation();
+	}
+	
+	@Override
+	public String toString() {
+		return String.format(bikeType.getString());
 	}
 }

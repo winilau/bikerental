@@ -370,6 +370,9 @@ public class SystemTests {
 	}
 
 	@Test
+	/**
+	 * test returning bikes and see if location is correction after picking up and returning
+	 */
 	void testReturnBikes() {
 		DeliveryServiceFactory.setupMockDeliveryService();
 		MockDeliveryService ds1 = (MockDeliveryService) DeliveryServiceFactory.getDeliveryService();

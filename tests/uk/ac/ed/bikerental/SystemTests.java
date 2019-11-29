@@ -97,6 +97,7 @@ public class SystemTests {
 		this.test.calcP.setDailyRentalPrice(cyclocross, BigDecimal(20));
 		this.test.calcP.setDailyRentalPrice(kid, BigDecimal(10));
 		this.test.calcP.setDailyRentalPrice(track, BigDecimal(20));
+		
 
 		// Bikes
 		this.bike1 = new Bike(mountain, true, Rachel);
@@ -226,6 +227,35 @@ public class SystemTests {
 		Collection<Quote> quotes1 = test.getQuotes(dateRange1, request2);
 		Collection<Quote> empty = new ArrayList<>();
 		assertEquals(quotes1.toString(), empty.toString());
+	}
+	
+	
+	/**
+	 * This test is for the get quote use case too. This time it checks if the
+	 * system is able to get quotes from different providers and implements the
+	 * multidayRate submodule.
+	 */
+	@Test
+	void testgetQuote4() {
+		this.test.calcP.setDiscount(1,2, BigDecimal.ZERO);
+		this.test.calcP.setDiscount(3,6, BigDecimal(0.05));
+		this.test.calcP.setDiscount(7,13, BigDecimal(0.10));
+		this.test.calcP.setDiscount(14, BigDecimal(0.15));
+		Collection<Quote> quotes1 = test.getQuotes(dateRange1, request3);
+		Collection<Bike> bikes = new ArrayList<>();
+		bikes.add(bike7);
+		Collection<Bike> bikes1 = new ArrayList<>();
+		bikes1.add(bike11);
+
+		Quote q = new Quote(Joey, bikes, dateRange1, BigDecimal(38).stripTrailingZeros(),
+				BigDecimal(50).stripTrailingZeros());
+		Quote q1 = new Quote(Ross, bikes1, dateRange1, BigDecimal(38).stripTrailingZeros(),
+				BigDecimal(60).stripTrailingZeros());
+		Collection<Quote> results = new ArrayList<Quote>();
+		results.add(q);
+		results.add(q1);
+
+		assertEquals(true, quoteEqualsAll(results, quotes1));
 	}
 
 	/**

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Quote extends SystemClass {
 	private Provider provider;
-	private Collection <Bike> bikes;
+	private Collection <Bike> bikes = new ArrayList<>();
 	private DateRange duration;
 	private BigDecimal price;
 	private BigDecimal deposit;
@@ -30,7 +30,7 @@ public class Quote extends SystemClass {
 	//below are getter methods for this class
 	@Override
 	public String toString() {
-		return String.format(provider + "," + bikes + "," + duration + "," + price + "," + deposit);
+		return String.format(provider + "," + bikes + "," + duration + "," + price.toPlainString() + "," + deposit.toPlainString());
 	}
 	public Provider getProvider() {
 		return provider;

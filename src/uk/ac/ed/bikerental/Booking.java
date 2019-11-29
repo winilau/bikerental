@@ -39,6 +39,12 @@ public class Booking {
 		this.deposit = deposit;
 		
 	}
+	
+	@Override
+	public String toString() {
+		return String.format(bookingNum+ "," + duration + "," + totalPrice.toPlainString() + "," + pickUp + "," + customer + "," +bikes +
+				","+ provider + ","+ deposit.toPlainString() );
+	}
 
 	//Below are getter functions.
 	public int getBookingNum() {

@@ -109,15 +109,15 @@ public class SystemClass {
      */
     public void returnBikes(int bookingNum, Provider p) {
     	Booking booking = bookingId.get(bookingNum);
-    	
+    	System.out.println(booking.toString());
     	if (booking.getProvider() == p) {
     		Collection<Bike> bikes = booking.getBikes();
         	for (Bike b: bikes) {
         		b.changeLocation();
         	}
     	}else {
-    		//implement the delivery of bike to original provider
     		Collection<Bike> bikes = booking.getBikes();
+    		DeliveryServiceFactory.getDeliveryService();
         	for (Bike b: bikes) {
         		b.changeLocation();
         	}

@@ -65,7 +65,7 @@ public class Provider extends SystemClass{
      * This methods adds partners to the list of partners
      * @param partners are the partners to be added
      */
-    public void addPartner(ArrayList<Provider> partners) {
+    public void addPartner(Collection<Provider> partners) {
     	for (Provider p: partners) {
     		this.partners.add(p);
     	}

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Bike extends SystemClass implements Deliverable {
 	private BikeType bikeType; 
-	private boolean inStore = true; 
+	private boolean inStore; 
 	public Provider provider;
 	public Collection<DateRange> dateRanges = new ArrayList<DateRange>();
 	
@@ -78,7 +78,7 @@ public class Bike extends SystemClass implements Deliverable {
 	 *	It changes the truth value of the boolean inStore.
 	 */
 	public void changeLocation() {
-		if (isBikeInStore()==true) {
+		if (inStore ==true) {
 			inStore = false;
 		} else {
 			inStore = true;

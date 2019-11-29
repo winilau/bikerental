@@ -43,16 +43,16 @@ public class SystemClass {
 				BigDecimal totalDeposit = calcDeposit.calculateAllValue(matched).stripTrailingZeros();
 				Quote result = new Quote(p, matched, dateRange, totalPrice, totalDeposit);
 				//System.out.println(result.getProvider().getName());
-				printBikes(result.getBike());
+				//printBikes(result.getBike());
 				//System.out.println(totalPrice.toPlainString());
 				//System.out.println(totalDeposit.toPlainString());
 				//System.out.println();
 				availableQuotes.add(result);
 			}			
 		}
-		for (Quote q: availableQuotes) {
-			System.out.println(q.toString());
-		}
+		//for (Quote q: availableQuotes) {
+		//	System.out.println(q.toString());
+		//}
 		return availableQuotes;
 		
 	}
@@ -82,7 +82,7 @@ public class SystemClass {
 	 * @return			 the booking of the chosen quote
 	 */
 	public Booking bookQuote(Quote q, Customer customer, boolean pickUp) {
-		System.out.println("+++++" + q.toString());
+		//System.out.println("+++++" + q.toString());
 		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();  																				
 		BigDecimal separateDeposit = q.getDeposit(); 
 		DateRange duration = q.getDuration();    
@@ -91,7 +91,7 @@ public class SystemClass {
 		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p, separateDeposit);
 		bookingId.put(bookingNum, booked); 
 		this.bookingNum++;
-		System.out.println(wantedBikes.toString());
+		//System.out.println(wantedBikes.toString());
 		for (Bike b: wantedBikes) {   
 			b.changeAvailability(duration);
 		}

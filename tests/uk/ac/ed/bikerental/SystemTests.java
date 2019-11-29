@@ -196,13 +196,18 @@ public class SystemTests {
 		BigDecimal totalPrice = testQuote.getDeposit().add(testQuote.getPrice());
 		Booking expected = new Booking(0, testQuote.getDuration(),totalPrice,true,
 				Draco,testQuote.getBike(),testQuote.getProvider(),testQuote.getDeposit());
-		System.out.println(expected.toString());
-		System.out.println(booking1.toString());
+		//System.out.println(expected.toString());
+		//System.out.println(booking1.toString());
 		assertEquals(expected.toString(), booking1.toString());
 	}
 	
 	@Test
 	void testGetAndBookQuote(){
+		Collection<Bike> testBikes = new ArrayList<Bike>(); 
+		testBikes.add(bike11);
+		testQuote = new Quote(Ross, testBikes, dateRange1, BigDecimal(40),
+				BigDecimal(60));
+		test.bookQuote(testQuote, Draco, true);
 		Collection<Quote> quotes1 = test.getQuotes(dateRange1, request3);
 		Collection<Bike> bikes = new ArrayList<Bike>(); 
 		bikes.add(bike7);
@@ -218,7 +223,7 @@ public class SystemTests {
 		for (Quote y: quotes1) {
 			resultsInString.add(y.toString());
 		}
-		//System.out.println("dsjhgf");
+		System.out.println("dsjhgf");
 		boolean equalCollections = quotesInString.containsAll(resultsInString) && resultsInString.containsAll(quotesInString);
 		System.out.println("-----" + quotes1.toString());
 		assertEquals(true, equalCollections);

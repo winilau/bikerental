@@ -7,7 +7,7 @@ public class Bike extends SystemClass implements Deliverable {
 	private BikeType bikeType; 
 	private boolean inStore = true; 
 	public Provider provider;
-	public Collection<DateRange> dateRanges = new ArrayList<DateRange>();
+	public Collection<DateRange> dateRanges;
 	
 	/**
 	 * Constructor
@@ -22,6 +22,7 @@ public class Bike extends SystemClass implements Deliverable {
 		this.inStore = inStore;
 		this.provider = provider;
 		provider.addBike(this);
+		dateRanges= new ArrayList<DateRange>();
 	}
 	
 	/**

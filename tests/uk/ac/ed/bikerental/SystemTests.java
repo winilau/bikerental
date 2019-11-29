@@ -64,11 +64,9 @@ public class SystemTests {
 		Harry = new Customer("Harry Potter", lo6,"Hedwig", "theguywholived@gmail.com");
 		Ron = new Customer("Ron Weasley", lo7,"Pigwidgeon", "bloodyhell@gmail.com");
 		Hermione = new Customer("Hermione Granger", lo8,"Crookshanks", "knowitall@gmail.com");
-		Draco = new Customer("Drago Malfoy", lo9,"Lucius", "myfatherwillhearaboutthis@gmail.com");
+		Draco = new Customer("Draco Malfoy", lo9,"Lucius", "myfatherwillhearaboutthis@gmail.com");
 		
-		Collection<Bike> testBikes = new ArrayList<Bike>() {{add(bike11);}};
-		testQuote = new Quote(Ross, testBikes, dateRange1, BigDecimal(40),
-				BigDecimal(60));
+		Collection<Bike> testBikes = new ArrayList<Bike>(); 
 		
 		this.test.addProvider(Rachel);
 		this.test.addProvider(Ross);
@@ -189,11 +187,41 @@ public class SystemTests {
 
 	@Test
 	void testBookQuote1() {
+		Collection<Bike> testBikes = new ArrayList<Bike>(); 
+		testBikes.add(bike11);
+		testQuote = new Quote(Ross, testBikes, dateRange1, BigDecimal(40),
+				BigDecimal(60));
+		
 		Booking booking1 = test.bookQuote(testQuote, Draco, true);
 		BigDecimal totalPrice = testQuote.getDeposit().add(testQuote.getPrice());
 		Booking expected = new Booking(0, testQuote.getDuration(),totalPrice,true,
 				Draco,testQuote.getBike(),testQuote.getProvider(),testQuote.getDeposit());
-		assertEquals(booking1,expected);
+		System.out.println(expected.toString());
+		System.out.println(booking1.toString());
+		assertEquals(expected.toString(), booking1.toString());
+	}
+	
+	@Test
+	void testGetAndBookQuote(){
+		Collection<Quote> quotes1 = test.getQuotes(dateRange1, request3);
+		Collection<Bike> bikes = new ArrayList<Bike>(); 
+		bikes.add(bike7);
+		Quote q = new Quote(Joey, bikes, dateRange1, BigDecimal(40).stripTrailingZeros(),
+				BigDecimal(50).stripTrailingZeros());
+		
+		Collection<String> quotesInString = new ArrayList<String>() {
+			{
+				add(q.toString());
+			}
+		};
+		Collection<String> resultsInString = new ArrayList<>();
+		for (Quote y: quotes1) {
+			resultsInString.add(y.toString());
+		}
+		//System.out.println("dsjhgf");
+		boolean equalCollections = quotesInString.containsAll(resultsInString) && resultsInString.containsAll(quotesInString);
+		System.out.println("-----" + quotes1.toString());
+		assertEquals(true, equalCollections);
 	}
 
 }

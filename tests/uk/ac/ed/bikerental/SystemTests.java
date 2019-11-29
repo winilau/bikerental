@@ -62,7 +62,9 @@ public class SystemTests {
 		Monica = new Provider("Monica Geller", lo3, "07394619363", BigDecimal(0.50));
 		Joey = new Provider("Joey Tribbiani", lo4, "07019368294", BigDecimal(0.5));
 		Phobee = new Provider("Phobee Buffay", lo5, "07527307123", BigDecimal(0.5));
-
+		
+		Joey.addPartner(Phobee);
+		
 		// Customers
 		Harry = new Customer("Harry Potter", lo6, "Hedwig", "theguywholived@gmail.com");
 		Ron = new Customer("Ron Weasley", lo7, "Pigwidgeon", "bloodyhell@gmail.com");
@@ -152,7 +154,7 @@ public class SystemTests {
 	// check if 2 quotes are equal (order of bikes does not matter)
 	public boolean quotesEqual(Quote q1, Quote q2) {
 		boolean providerEquals = q1.getProvider().toString().equals(q2.getProvider().toString());
-		boolean bikesEquals = q1.getBike().containsAll(q2.getBike()) && q2.getBike().containsAll(q1.getBike());
+		boolean bikesEquals = q1.getBikes().containsAll(q2.getBikes()) && q2.getBikes().containsAll(q1.getBikes());
 		boolean dateRangeEquals = q1.getDuration().toString().equals(q2.getDuration().toString());
 		boolean priceEquals = q1.getPrice().equals(q2.getPrice());
 		boolean depositEquals = q1.getDeposit().equals(q2.getDeposit());
@@ -238,7 +240,7 @@ public class SystemTests {
 
 		Booking booking1 = test.bookQuote(testQuote, Draco, true);
 		BigDecimal totalPrice = testQuote.getDeposit().add(testQuote.getPrice());
-		Booking expected = new Booking(0, testQuote.getDuration(), totalPrice, true, Draco, testQuote.getBike(),
+		Booking expected = new Booking(0, testQuote.getDuration(), totalPrice, true, Draco, testQuote.getBikes(),
 				testQuote.getProvider(), testQuote.getDeposit());
 		assertEquals(true, bookingEqual(expected, booking1));
 	}
@@ -257,7 +259,7 @@ public class SystemTests {
 
 		Booking booking1 = test.bookQuote(testQuote, Harry, false);
 		BigDecimal totalPrice = testQuote.getDeposit().add(testQuote.getPrice());
-		Booking expected = new Booking(0, testQuote.getDuration(), totalPrice, false, Harry, testQuote.getBike(),
+		Booking expected = new Booking(0, testQuote.getDuration(), totalPrice, false, Harry, testQuote.getBikes(),
 				testQuote.getProvider(), testQuote.getDeposit());
 		ds.scheduleDelivery(bike8, Phobee.getAddress(), Harry.getAddress(), dateRange1.getStart());
 
@@ -270,7 +272,7 @@ public class SystemTests {
 
 		Booking booking2 = test.bookQuote(testQuote1, Hermione, false);
 		BigDecimal totalPrice2 = testQuote1.getDeposit().add(testQuote1.getPrice());
-		Booking expected2 = new Booking(1, testQuote1.getDuration(), totalPrice2, false, Hermione, testQuote1.getBike(),
+		Booking expected2 = new Booking(1, testQuote1.getDuration(), totalPrice2, false, Hermione, testQuote1.getBikes(),
 				testQuote1.getProvider(), testQuote1.getDeposit());
 		ds.scheduleDelivery(bike9, Monica.getAddress(), Hermione.getAddress(), dateRange1.getStart());
 
@@ -283,7 +285,7 @@ public class SystemTests {
 
 		Booking booking3 = test.bookQuote(testQuote2, Ron, false);
 		BigDecimal totalPrice3 = testQuote2.getDeposit().add(testQuote2.getPrice());
-		Booking expected3 = new Booking(2, testQuote2.getDuration(), totalPrice3, false, Ron, testQuote2.getBike(),
+		Booking expected3 = new Booking(2, testQuote2.getDuration(), totalPrice3, false, Ron, testQuote2.getBikes(),
 				testQuote2.getProvider(), testQuote2.getDeposit());
 		ds.scheduleDelivery(bike10, Ross.getAddress(), Ron.getAddress(), dateRange4.getStart());
 
@@ -340,6 +342,32 @@ public class SystemTests {
 
 		assertEquals(true, quoteEqualsAll(qs, quotes1));
 	}
+	
+	/**
+	 * same as above but with overlapping date range instead of the same one to see if 
+	 * the system can check the availability
+	 */
+	@Test
+	void testGetAndBookQuote2() {
+
+		Collection<Bike> testBikes = new ArrayList<Bike>();
+		testBikes.add(bike11);
+
+		testQuote = new Quote(Ross, testBikes, dateRange2, BigDecimal(40), BigDecimal(60));
+		test.bookQuote(testQuote, Draco, true);
+
+		Collection<Quote> quotes1 = test.getQuotes(dateRange1, request3);
+		Collection<Bike> bikes = new ArrayList<Bike>();
+		bikes.add(bike7);
+
+		Quote q = new Quote(Joey, bikes, dateRange1, BigDecimal(40).stripTrailingZeros(),
+				BigDecimal(50).stripTrailingZeros());
+
+		Collection<Quote> qs = new ArrayList<>();
+		qs.add(q);
+
+		assertEquals(true, quoteEqualsAll(qs, quotes1));
+	}
 
 	@Test
 	void testReturnBikes() {
@@ -348,11 +376,18 @@ public class SystemTests {
 		Collection<Bike> testBikes = new ArrayList<Bike>();
 		testBikes.add(bike15);
 		testQuote4 = new Quote(Joey, testBikes, dateRange4, BigDecimal(60), BigDecimal(150));
-		BigDecimal totalPrice = testQuote4.getDeposit().add(testQuote4.getPrice());
+		
+		test.bookQuote(testQuote4, Ron, true);
+		bike15.onPickup();
+		
+		assertEquals(false,bike15.isBikeInStore());
 
-		Booking expected = test.bookQuote(testQuote4, Ron, true);
 		test.returnBikes(0, Phobee);
+		ds1.scheduleDelivery(bike15, Phobee.getAddress(),Joey.getAddress(), dateRange4.getEnd());
+		ds1.carryOutPickups(dateRange4.getEnd());
+		ds1.carryOutDropoffs();
 		
-		
+		assertEquals(true,bike15.isBikeInStore());
+
 	}
 }

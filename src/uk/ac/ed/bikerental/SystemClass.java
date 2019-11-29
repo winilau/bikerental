@@ -65,7 +65,7 @@ public class SystemClass {
 		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();  																				
 		BigDecimal separateDeposit = q.getDeposit(); 
 		DateRange duration = q.getDuration();    
-		Collection <Bike> wantedBikes = q.getBike();   
+		Collection <Bike> wantedBikes = q.getBikes();   
 		Provider p = q.getProvider(); 
 		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p, separateDeposit);
 		bookingId.put(bookingNum, booked); 
@@ -91,14 +91,16 @@ public class SystemClass {
         	for (Bike b: bikes) {
         		b.changeLocation();
         	}
+    	}else if (!booking.getProvider().getPartners().contains(p)){
+    		throw new IllegalArgumentException("cannot return to this provider"
+    					+ " because they are not the original provider's partner");
     	}else {
     		Collection<Bike> bikes = booking.getBikes();
-    		DeliveryServiceFactory.getDeliveryService();
+    		
         	for (Bike b: bikes) {
+        	//	DeliveryServiceFactory.getDeliveryService();
         		b.changeLocation();
         	}
     	}
-    	
     }
-	
 }

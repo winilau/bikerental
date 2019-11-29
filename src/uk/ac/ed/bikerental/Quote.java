@@ -36,7 +36,7 @@ public class Quote extends SystemClass {
 		return provider;
 	}
 
-	public Collection<Bike> getBike() {
+	public Collection<Bike> getBikes() {
 		return bikes;
 	}
 

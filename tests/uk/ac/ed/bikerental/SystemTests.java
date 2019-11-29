@@ -13,13 +13,15 @@ public class SystemTests {
 			bike15;
 	private DateRange dateRange1, dateRange2, dateRange3, dateRange4, dateRange5;
 	private Provider Rachel, Ross, Monica, Phobee, Joey;
-	private String pc1, pc2, pc3, pc4, pc5;
-	private Location lo1, lo2, lo3, lo4, lo5;
+	private Customer Harry, Draco, Ron, Hermione;
+	private String pc1, pc2, pc3, pc4, pc5,pc6,pc7,pc8,pc9;
+	private Location lo1, lo2, lo3, lo4, lo5,lo6,lo7,lo8,lo9;
 	private BikeType mountain, road, bmx, commute, hybrid, cyclocross, kid, track;
 	private Map<BikeType, Integer> request1 = new HashMap<>();
 	private Map<BikeType, Integer> request2 = new HashMap<>();
 	private Map<BikeType, Integer> request3 = new HashMap<>();
 	private Map<BikeType, Integer> request4 = new HashMap<>();
+	private Quote testQuote;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -38,12 +40,20 @@ public class SystemTests {
 		pc3 = "EH106QU";
 		pc4 = "DA81PE";
 		pc5 = "EH81PE";
+		pc6 = "EH74HJ";
+		pc7 = "AB7053";
+		pc8 = "RF6789";
+		pc9 = "QRW568";
 
 		lo1 = new Location(pc1, "Slytherin");
 		lo2 = new Location(pc2, "Griffyndor");
 		lo3 = new Location(pc3, "Hogwarts School of Witchcraft and Wizardry");
 		lo4 = new Location(pc4, "Hufflepuff");
 		lo5 = new Location(pc5, "Ravenclaw");
+		lo6 = new Location(pc6, "Central Perks");
+		lo7 = new Location(pc7, "Chandler's office");
+		lo8 = new Location(pc8, "Ross's Museum");
+		lo9 = new Location(pc9, "Bloomingdale's");
 
 		Rachel = new Provider("Rachel Green", lo1, "07136086345", BigDecimal(0.5));
 		Ross = new Provider("Ross Geller", lo2, "07365823912", BigDecimal(0.6));
@@ -51,6 +61,15 @@ public class SystemTests {
 		Joey = new Provider("Joey Tribbiani", lo4, "07019368294", BigDecimal(0.5));
 		Phobee = new Provider("Phobee Buffay", lo5, "07527307123", BigDecimal(0.5));
 
+		Harry = new Customer("Harry Potter", lo6,"Hedwig", "theguywholived@gmail.com");
+		Ron = new Customer("Ron Weasley", lo7,"Pigwidgeon", "bloodyhell@gmail.com");
+		Hermione = new Customer("Hermione Granger", lo8,"Crookshanks", "knowitall@gmail.com");
+		Draco = new Customer("Drago Malfoy", lo9,"Lucius", "myfatherwillhearaboutthis@gmail.com");
+		
+		Collection<Bike> testBikes = new ArrayList<Bike>() {{add(bike11);}};
+		testQuote = new Quote(Ross, testBikes, dateRange1, BigDecimal(40),
+				BigDecimal(60));
+		
 		this.test.addProvider(Rachel);
 		this.test.addProvider(Ross);
 		this.test.addProvider(Monica);
@@ -168,5 +187,13 @@ public class SystemTests {
 		assertEquals(quotes1.toString(), empty.toString());
 	}
 
+	@Test
+	void testBookQuote1() {
+		Booking booking1 = test.bookQuote(testQuote, Draco, true);
+		BigDecimal totalPrice = testQuote.getDeposit().add(testQuote.getPrice());
+		Booking expected = new Booking(0, testQuote.getDuration(),totalPrice,true,
+				Draco,testQuote.getBike(),testQuote.getProvider(),testQuote.getDeposit());
+		assertEquals(booking1,expected);
+	}
 
 }

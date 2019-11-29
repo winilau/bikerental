@@ -42,31 +42,11 @@ public class SystemClass {
 				BigDecimal totalPrice = calcP.calculatePrice(matched, dateRange).stripTrailingZeros();
 				BigDecimal totalDeposit = calcDeposit.calculateAllValue(matched).stripTrailingZeros();
 				Quote result = new Quote(p, matched, dateRange, totalPrice, totalDeposit);
-				//System.out.println(result.getProvider().getName());
-				//printBikes(result.getBike());
-				//System.out.println(totalPrice.toPlainString());
-				//System.out.println(totalDeposit.toPlainString());
-				//System.out.println();
 				availableQuotes.add(result);
 			}			
 		}
-		//for (Quote q: availableQuotes) {
-		//	System.out.println(q.toString());
-		//}
 		return availableQuotes;
 		
-	}
-	
-	public void printProviders() {
-		for (Provider p:providers) {
-			System.out.println(p.getName());
-		}
-	}
-	
-	public void printBikes(Collection<Bike> bikes) {
-		for (Bike b:bikes) {
-			System.out.println(b.getType().getString() + " ");
-		}
 	}
 	
 	public void addProvider(Provider provider) {
@@ -82,7 +62,6 @@ public class SystemClass {
 	 * @return			 the booking of the chosen quote
 	 */
 	public Booking bookQuote(Quote q, Customer customer, boolean pickUp) {
-		//System.out.println("+++++" + q.toString());
 		BigDecimal totalPrice = (q.getDeposit().add(q.getPrice())).stripTrailingZeros();  																				
 		BigDecimal separateDeposit = q.getDeposit(); 
 		DateRange duration = q.getDuration();    
@@ -91,13 +70,11 @@ public class SystemClass {
 		Booking booked = new Booking(this.bookingNum, duration, totalPrice, pickUp, customer,wantedBikes, p, separateDeposit);
 		bookingId.put(bookingNum, booked); 
 		this.bookingNum++;
-		//System.out.println(wantedBikes.toString());
 		for (Bike b: wantedBikes) {   
 			b.changeAvailability(duration);
 		}
-		//have to implement the delivery service
 		if (!pickUp) {
-		DeliveryServiceFactory.getDeliveryService();
+			DeliveryServiceFactory.getDeliveryService();
 		}
 		return booked;
 
@@ -109,7 +86,6 @@ public class SystemClass {
      */
     public void returnBikes(int bookingNum, Provider p) {
     	Booking booking = bookingId.get(bookingNum);
-    	System.out.println(booking.toString());
     	if (booking.getProvider() == p) {
     		Collection<Bike> bikes = booking.getBikes();
         	for (Bike b: bikes) {

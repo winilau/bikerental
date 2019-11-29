@@ -56,7 +56,7 @@ public class Booking {
 	}
 
 	public BigDecimal getTotalPrice() {
-		return totalPrice;
+		return totalPrice.stripTrailingZeros();
 	}
 
 	public boolean isToBePickedUp() {
